@@ -1,0 +1,10 @@
+.nav-item.header > a{
+    color: #fff !important;
+    font-weight: bold;
+}
+.nav-item.header > i{
+    color: #fff !important;
+    font-weight: bold;
+    font-size: 12px;
+    margin-top: 15px;
+}
