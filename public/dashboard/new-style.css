@@ -8,3 +8,55 @@
     font-size: 12px;
     margin-top: 15px;
 }
+
+.rounded{
+    border-radius: 10px !important;
+}
+
+.page-item.active .page-link{
+    background-color: #001f3f !important;
+    border-color: #001f3f !important;
+}
+
+.size-btn{
+    width: 120px;
+}
+
+.btn-outline-primary{
+    border-color: #001f3f !important;
+    background-color: transparent !important;
+    color: #001f3f !important;
+}
+
+.table th{
+    background-color: #001f3f;
+    color: #fff;
+}
+
+.rounded-modal{
+    border-bottom-right-radius: inherit;
+    border-bottom-left-radius: inherit;
+}
+.btn-secondary{
+    border: none !important;
+    color: #707070!important;
+    background-color: #e6e7e8!important;
+}
+
+.btn-primary{
+    border: none;
+    color: #fff !important;
+    background-color: #001f3f !important;
+}
+
+.colored-toast.swal2-icon-success {
+    background-color: #a5dc86 !important;
+}
+
+.colored-toast.swal2-icon-error {
+background-color: #f27474 !important;
+}
+
+.colored-toast.swal2-icon-warning {
+background-color: #f8bb86 !important;
+}
