@@ -13,14 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/','LoginController@index');
-Route::get('/data-pengguna','UsersController@index');
-Route::get('/beranda','DashboardController@index');
-Route::get('/profile','UsersController@profile');
-Route::post('/add-users','UsersController@store');
-Route::post('/update-users/{id}','UsersController@update');
-Route::get('/delete-users/{id}','UsersController@destroy');
+// Route::prefix("/",function(){})
+Route::get('/', 'LoginController@index');
+Route::post('/', 'LoginController@checkLogin');
+
+Route::group(['prefix'=>'/dashboard'], function () {
+    Route::get('/data-pengguna', 'UsersController@index');
+    Route::get('/beranda', 'DashboardController@index');
+    Route::get('/profile', 'UsersController@profile');
+    Route::post('/add-users', 'UsersController@store');
+    Route::post('/update-users/{id}', 'UsersController@update');
+    Route::get('/delete-users/{id}', 'UsersController@destroy');
+    Route::get("/surat-masuk", "LetterInController@index");
+    Route::get("/surat-keluar", "LetterOutController@index");
+    Route::get("/instansi", "InstansiController@index");
+});
+
 // Route::middleware(['auth','checkLogin'])->group(function(){
 // });
-
-

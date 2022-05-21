@@ -25,7 +25,9 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{asset('login/css/util.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('login/css/main.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('login/css/style.css')}}">
 <!--===============================================================================================-->
+
 </head>
 <body>
 	
@@ -37,20 +39,24 @@
 						Sign In
 					</span>
 				</div>
-
-				<form class="login100-form validate-form">
-					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
-						<span class="label-input100">Username</span>
-						<input class="input100" type="text" name="username" placeholder="Enter username">
+				@if ($message = Session::get('message'))
+					<div class="mx-5 mt-4 mb-0 p-2" id={{ Session::get('islogin') == false ? 'alert-danger' : ''}} style="border-radius: 50px">
+						<p class="text-center text-white">{{$message}}</p>
+					</div>
+				@endif
+				<form class="login100-form validate-form" action="/" method="POST">
+					<div class="wrap-input100 validate-input m-b-26" data-validate="email is required">
+						<span class="label-input100">email</span>
+						<input class="input100" type="text" name="email" placeholder="Enter email">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
 						<span class="label-input100">Password</span>
-						<input class="input100" type="password" name="pass" placeholder="Enter password">
+						<input class="input100" type="password" name="password" placeholder="Enter password">
 						<span class="focus-input100"></span>
 					</div>
-
+					@csrf
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
 							Login

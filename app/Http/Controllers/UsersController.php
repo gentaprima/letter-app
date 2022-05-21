@@ -15,7 +15,7 @@ class UsersController extends Controller
         $data = [
             'dataPengguna' => $dataPengguna
         ];
-        return view('data-pengguna',$data);
+        return view('pengguna',$data);
     }
 
     public function profile(){
