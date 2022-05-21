@@ -20,6 +20,7 @@ Route::post('/', 'LoginController@checkLogin');
 Route::group(['prefix'=>'/dashboard'], function () {
     Route::get('/data-pengguna', 'UsersController@index');
     Route::get('/beranda', 'DashboardController@index');
+    Route::get('/', 'DashboardController@index');
     Route::get('/profile', 'UsersController@profile');
     Route::post('/add-users', 'UsersController@store');
     Route::post('/update-users/{id}', 'UsersController@update');
