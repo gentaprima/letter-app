@@ -8,7 +8,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <div class="content-header">
+    {{-- <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
@@ -22,70 +22,74 @@
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
-    </div>
+    </div> --}}
     <!-- /.content-header -->
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>150</h3>
-
-                            <p>New Orders</p>
+              <div class="col-xl-4 col-sm-7 mb-xl-0 mb-4">
+                <div class="card">
+                      <div class="card-body p-3">
+                        <div class="row">
+                          <div class="col-8">
+                            <div class="numbers">
+                              <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah Surat Masuk</p>
+                                <span class="font-weight-bolder mb-0 text-success text-sm font-weight-bolder">55</span>
+                            </div>
+                          </div>
+                          <div class="col-4 text-end">
+                            <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                              <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                            </div>
+                          </div>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                      </div>
                     </div>
-                </div>
+                  </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                            <p>Bounce Rate</p>
+                <div class="col-xl-4 col-sm-7 mb-xl-0 mb-4">
+                  <div class="card">
+                      <div class="card-body p-3">
+                        <div class="row">
+                          <div class="col-8">
+                            <div class="numbers">
+                              <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah Surat Masuk</p>
+                                <span class="font-weight-bolder mb-0 text-success text-sm font-weight-bolder">55</span>
+                            </div>
+                          </div>
+                          <div class="col-4 text-end">
+                            <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                              <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                            </div>
+                          </div>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                      </div>
                     </div>
-                </div>
+                  </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3>44</h3>
-
-                            <p>User Registrations</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-person-add"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3>65</h3>
-
-                            <p>Unique Visitors</p>
+                <div class="col-xl-4 col-sm-7 mb-xl-0 mb-4">
+                    <div class="card">
+                      <div class="card-body p-3">
+                        <div class="row">
+                          <div class="col-8">
+                            <div class="numbers">
+                              <p class="text-sm mb-0 text-capitalize font-weight-bold">Today's Money</p>
+                              <h5 class="font-weight-bolder mb-0">
+                                $53,000
+                                <span class="text-success text-sm font-weight-bolder">+55%</span>
+                              </h5>
+                            </div>
+                          </div>
+                          <div class="col-4 text-end">
+                            <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                              <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                            </div>
+                          </div>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                      </div>
                     </div>
-                </div>
+                  </div>
             </div>
         </div>
     </section>
