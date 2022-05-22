@@ -21,28 +21,33 @@
                         </div>
                        </div>
                  </div>                        
-                <table id="example1" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
-                                    <i class="fa fa-edit"></i> 
-                               </button>                         
-                                <button type="button" id="delete-data" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
-                                    <i class="fa fa-trash"></i> 
-                               </button>                         
-                            </td>
-                        </tr>
-                    </tbody>
+                 <table id="example1" class="table table-striped">
+                  <thead>
+                      <tr>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {{-- @foreach($dataPengguna as $row) --}}
+                      <tr>
+                          <td class="text-xs font-weight-bold mb-0">1.</td>
+                          <td class="text-xs font-weight-bold mb-0">
+                            <a href="#" {{--onclick="edit({{$row->id}})" --}} style="margin-right:10px" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                              Edit
+                            </a>                    
 
-                </table>
+                            <a {{-- href="/dashboard/users/{{ $row->id}} "--}} style="margin-right:10px" class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                              Delete
+                            </a>               
+                            <a {{-- href="/dashboard/users/{{ $row->id}} "--}} class="text-success font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                              Disposisi
+                            </a>                      
+                          </td>
+                      </tr>
+                      {{-- @endforeach --}}
+                    </tbody>
+                  </table>
             </div>
         </div>
     </section>
