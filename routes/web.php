@@ -28,6 +28,9 @@ Route::group(['prefix'=>'/dashboard'], function () {
     Route::get("/surat-masuk", "LetterInController@index");
     Route::get("/surat-keluar", "LetterOutController@index");
     Route::get("/instansi", "InstansiController@index");
+    Route::post("/instansi", "InstansiController@store");
+    Route::get("/instansi/{id}", "InstansiController@destroy");
+    Route::post("/instansi/{id}", "InstansiController@update");
 });
 
 // Route::middleware(['auth','checkLogin'])->group(function(){

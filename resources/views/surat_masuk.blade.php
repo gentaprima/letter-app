@@ -10,11 +10,12 @@
     <section class="content">
         <div class="container-fluid">
             <div class="card p-5 rounded mb-3">
-                 <div class="d-flex">
-                       <button class="btn btn-outline-primary size-btn" onclick="addData()" data-toggle="modal" data-target="#modal-form">Tambah Data</button>
-                       
-                       <div class="ms-md-auto pe-md-5 d-flex align-items-center">
-                        <div class="input-group">
+                 <div class="d-flex align-items-center">
+                  <div class="input-group">
+                       <button class=" btn btn-outline-primary size-btn" onclick="addData()" data-toggle="modal" data-target="#modal-form">Tambah Data</button>
+                  </div>
+                       <div class="ms-md-auto d-flex">
+                        <div class="input-group" style="margin-right: 10px;width:100%">
                             <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
                             <input type="text" class="form-control" placeholder="Cari Data">
                         </div>
