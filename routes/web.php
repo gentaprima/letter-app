@@ -27,6 +27,7 @@ Route::group(['middleware' => 'check.login','prefix'=>'/dashboard'], function ()
     Route::post('/users', 'UsersController@store');
     Route::post('/users/{id}', 'UsersController@update');
     Route::get('/users/{id}', 'UsersController@destroy');
+    Route::get('/users/auth/logout', 'UsersController@logout');
 
     //Route letter
     Route::get("/surat-masuk", "LetterInController@index");

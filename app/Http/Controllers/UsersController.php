@@ -131,5 +131,6 @@ class UsersController extends Controller
 
     public function logout(Request $request){
         $request->session()->forget('users');
+        return redirect('/');
     }
 }
