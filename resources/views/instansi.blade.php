@@ -16,10 +16,10 @@
                 <table id="example1" class="table table-striped">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Nama Instansi</th>
-                            <th>Alamat Instansi</th>
-                            <th>Aksi</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Instansi</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Alamat Instansi</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,23 +28,55 @@
                       ?>
                       @foreach ($instance as $row)                     
                       <tr>
-                        <td>{{$i}}.</td>
-                        <td>{{ $row->nama_instansi }}</td>
-                        <td>{{ $row->alamat_instansi }}</td>
-                        <td>
-                          <button id="edit" type="button" onclick="edit({{$row->id}})" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
-                            <i class="fa fa-edit"></i> 
-                          </button>                         
-                          <a href="/dashboard/instansi/{{$row->id}}" id="delete-data" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
-                            <i class="fa fa-trash"></i> 
-                          </a>                         
+                        <td class="text-xs font-weight-bold mb-0">{{$i}}.</td>
+                        <td class="text-xs font-weight-bold mb-0">{{ $row->nama_instansi }}</td>
+                        <td class="text-xs font-weight-bold mb-0">{{ $row->alamat_instansi }}</td>
+                        <td class="text-xs font-weight-bold mb-0">
+                          <a  href="#" onclick="edit({{$row->id}})" style="margin-right:10px" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                            Edit
+                          </a>                    
+
+                          <a href="/dashboard/instansi/{{$row->id}}" href="" class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                            Delete
+                          </a>                            
                         </td>
                       </tr>
                       <?php  $i++ ?>
                       @endforeach
                     </tbody>
-
                 </table>
+                <div class="d-flex flex-row ms-md-auto">
+                  @if (!$instance->onFirstPage())
+                  <a rel="prev" href="{{ $instance->previousPageUrl() }}" style="margin-right:20px" class="btn btn-primary size-btn" data-toggle="modal" data-target="#modal-form">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                    </svg>
+                      Previous 
+                  </a>
+                  @else 
+                  <a rel="prev" style="margin-right:20px" class="btn btn-secondary size-btn" data-toggle="modal" data-target="#modal-form">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                    </svg>
+                      Previous 
+                  </a>
+                  @endif
+                  @if($instance->hasMorePages())
+                  <a href="{{ $instance->nextPageUrl() }}" rel="next" class="btn btn-primary size-btn" data-toggle="modal" data-target="#modal-form">
+                    Next 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                    </svg>
+                  </a>
+                  @else
+                  <a  class="btn btn-secondary size-btn" data-toggle="modal" data-target="#modal-form">
+                    Next 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                    </svg>
+                  </a>
+                  @endif
+                </div>       
             </div>
         </div>
 </div>

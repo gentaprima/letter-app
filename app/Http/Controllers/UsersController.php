@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class UsersController extends Controller
 {
     public function index(){
-        $dataPengguna = ModelUsers::all();
+        $dataPengguna = ModelUsers::paginate(10);
         $data = [
             'dataPengguna' => $dataPengguna
         ];
@@ -30,7 +30,8 @@ class UsersController extends Controller
             'password'    => 'required_with:confirmPassword|same:confirmPassword',
             'confirmPassword'    => 'required',
             'gender'           => 'required',
-            'birthDate'           => 'required|date'
+            'birthDate'           => 'required|date',
+            'role'=>'required|in:0,1,2,3'
 
         ],[
             'fullName.required' => "Nama Lengkap harus dilengkapi",
@@ -42,7 +43,6 @@ class UsersController extends Controller
             'phoneNumber.numeric'       => "Nomor telepon harus menggunakan angka",
             'password.confirmed'       => "Password dan Konfirmasi password harus sama",
         ]);
-
         if($validate->fails()){
             Session::flash('message', $validate->errors()->first()); 
             Session::flash('icon', 'error'); 
@@ -127,5 +127,9 @@ class UsersController extends Controller
         Session::flash('message', 'Data Pengguna berhasil dihapus.'); 
         Session::flash('icon', 'success'); 
         return redirect()->back();
+    }
+
+    public function logout(Request $request){
+        $request->session()->forget('users');
     }
 }

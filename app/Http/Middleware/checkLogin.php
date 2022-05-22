@@ -16,7 +16,10 @@ class checkLogin
      */
     public function handle(Request $request, Closure $next)
     {
-        
+        $session = session();
+        if(!$session->has('users')){
+            return redirect("/");
+        }
         return $next($request);
     }
 }

@@ -17,16 +17,22 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'LoginController@index');
 Route::post('/', 'LoginController@checkLogin');
 
-Route::group(['prefix'=>'/dashboard'], function () {
-    Route::get('/data-pengguna', 'UsersController@index');
+Route::group(['middleware' => 'check.login','prefix'=>'/dashboard'], function () {
     Route::get('/beranda', 'DashboardController@index');
     Route::get('/', 'DashboardController@index');
+    
+    //Route users
+    Route::get('/data-pengguna', 'UsersController@index');
     Route::get('/profile', 'UsersController@profile');
-    Route::post('/add-users', 'UsersController@store');
-    Route::post('/update-users/{id}', 'UsersController@update');
-    Route::get('/delete-users/{id}', 'UsersController@destroy');
+    Route::post('/users', 'UsersController@store');
+    Route::post('/users/{id}', 'UsersController@update');
+    Route::get('/users/{id}', 'UsersController@destroy');
+
+    //Route letter
     Route::get("/surat-masuk", "LetterInController@index");
     Route::get("/surat-keluar", "LetterOutController@index");
+
+    //Route Instance
     Route::get("/instansi", "InstansiController@index");
     Route::post("/instansi", "InstansiController@store");
     Route::get("/instansi/{id}", "InstansiController@destroy");

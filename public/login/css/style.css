@@ -5,3 +5,9 @@
 #alert-warning{
     background-color: yellow;
 }
+
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+    background-color: #7d0662;
+  }

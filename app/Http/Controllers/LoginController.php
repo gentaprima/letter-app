@@ -26,15 +26,15 @@ class LoginController extends Controller
             $request->session()->flash('message', $validate->errors()->first());
             return redirect("/");
         }
-        $check = ModelUsers::where('email', $request->email)->first();
-        if (!$check) {
+        $users = ModelUsers::where('email', $request->email)->first();
+        if (!$users) {
             $request->session()->flash('islogin', false);
             $request->session()->flash('message', "Akun tidak ditemukan");
             return redirect("/");
         }
-        $check =  Hash::check($request->password, $check->password);
+        $check =  Hash::check($request->password, $users->password);
         if ($check) {
-            session(['key' => $check]);
+            session(['users' => $users]);
             return redirect("/dashboard/beranda");
         }
         $request->session()->flash('islogin', false);
