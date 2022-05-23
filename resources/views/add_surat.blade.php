@@ -22,7 +22,7 @@
                                     <path d="M16 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                                   </svg>
                               </span>
-                              <input required type="text" name="no_surat" class="form-control" id="exampleInputno_surat1" required aria-describedby="no_suratHelp" placeholder="No Surat">
+                              <input required type="text" name="no_surat" class="form-control" id="exampleInputno_surat1" required aria-describedby="no_suratHelp" placeholder="Format : R/01/KP.01/VI/2022">
                             </div>
                           </div>          
                           <div class="col-lg-6 pb-4 col-sm-12 col-md-6">
