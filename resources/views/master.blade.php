@@ -26,7 +26,7 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
-  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-white" id="sidenav-main">
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-white" id="sidenav-main" style="z-index: 1">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href="/dashboard" >
@@ -67,7 +67,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  {{ Request::is('dashboard/surat-masuk') ? 'active' : '' }}" href="/dashboard/surat-masuk">
+          <a class="nav-link  {{ Request::is('dashboard/surat-masuk') || Request::is('dashboard/surat-masuk/tambah') ? 'active' : '' }}" href="/dashboard/surat-masuk">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
                 <path class="color-background" d="M9 8.5h2.793l.853.854A.5.5 0 0 0 13 9.5h1a.5.5 0 0 0 .5-.5V8a.5.5 0 0 0-.5-.5H9v1z"/>
@@ -254,7 +254,6 @@
    <script src="{{ asset('assets/js/plugins/chartjs.min.js') }}"></script>
    <script>
      var ctx = document.getElementById("chart-bars").getContext("2d");
- 
      new Chart(ctx, {
        type: "bar",
        data: {

@@ -30,7 +30,10 @@ Route::group(['middleware' => 'check.login','prefix'=>'/dashboard'], function ()
     Route::get('/users/auth/logout', 'UsersController@logout');
 
     //Route letter
+    Route::get("/surat-masuk/tambah", "LetterInController@add");
+    Route::post("/surat-masuk/tambah", "LetterInController@store");
     Route::get("/surat-masuk", "LetterInController@index");
+    Route::get("/surat-masuk/{id}", "LetterInController@destroy");
     Route::get("/surat-keluar", "LetterOutController@index");
 
     //Route Instance

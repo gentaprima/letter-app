@@ -11,3 +11,7 @@ a.disabled {
     cursor: default;
     background-color: #7d0662;
   }
+
+  .sidenav{
+      z-index: 1;
+  }

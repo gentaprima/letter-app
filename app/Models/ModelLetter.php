@@ -10,5 +10,5 @@ class ModelLetter extends Model
     use HasFactory;
 
     protected $table = "surat";
-    
+    protected $guarded = ['id'];
 }
