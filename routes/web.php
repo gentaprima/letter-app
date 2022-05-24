@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,14 +36,36 @@ Route::group(['middleware' => 'check.login','prefix'=>'/dashboard'], function ()
     Route::post("/surat-masuk/tambah", "LetterInController@store");
     Route::get("/surat-masuk", "LetterInController@index");
     Route::get("/surat-masuk/{id}", "LetterInController@destroy");
+    Route::get("/surat-masuk/detail/{id}", "LetterInController@show");
+    Route::post("/surat-masuk/disposisi/{id}", "LetterInController@disposisi");
     Route::get("/surat-keluar", "LetterOutController@index");
+
+
+    Route::post('/arsip','ArsipController@store');
 
     //Route Instance
     Route::get("/instansi", "InstansiController@index");
     Route::post("/instansi", "InstansiController@store");
     Route::get("/instansi/{id}", "InstansiController@destroy");
     Route::post("/instansi/{id}", "InstansiController@update");
+
 });
 
+
+Route::get('storage/{filename}', function ($filename)
+    {
+    $path = storage_path('public/' . $filename);
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    
+    return $response;
+    });
 // Route::middleware(['auth','checkLogin'])->group(function(){
 // });

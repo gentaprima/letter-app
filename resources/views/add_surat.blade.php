@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <div class="card p-5 rounded mb-3">
                     <div class="form-group">
-                        <form action="/dashboard/surat-masuk/tambah" method="POST">
+                        <form action="/dashboard/surat-masuk/tambah" method="POST"  enctype="multipart/form-data">
                         <div class="row">
                           <div class="col-lg-6  pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1">No Surat</label>
@@ -133,7 +133,7 @@
                     '<path d="M4 0h8a2 2 0 0 1 2 2v7H2V2a2 2 0 0 1 2-2zM2 12h12v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2zM.5 10a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1H.5z"/>'+
                     '</svg>'+
                     '</span>'+
-                    '<input id="lamp-photo" type="file" name="foto_lampiran[]" class="form-control" id="exampleInputfoto_lampiran1" aria-describedby="foto_lampirandaHelp" placeholder="Tekan Enter Jika Selesai">'+
+                    '<input required id="lamp-photo" type="file" name="foto_lampiran[]" class="form-control" id="exampleInputfoto_lampiran1" aria-describedby="foto_lampirandaHelp" placeholder="Tekan Enter Jika Selesai">'+
                     '</div></div>'
         $('.content-upload').append(form)
                 }

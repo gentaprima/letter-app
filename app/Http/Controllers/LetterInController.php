@@ -5,82 +5,152 @@ namespace App\Http\Controllers;
 use App\Models\ModelInstance;
 use App\Models\ModelLetter;
 use App\Models\ModelUsers;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class LetterInController extends Controller
 {
-    public function index(){
-        $data['letter'] = ModelLetter::select('surat.*','tbl_users.role','tbl_users.id as id_users','full_name','instansi.nama_instansi')->leftJoin('tbl_users','surat.id_users','=','tbl_users.id')
-        ->leftJoin('instansi','surat.id_instansi','=','instansi.id')->where('type','0')->get();
+    public function index()
+    {
+        $data['users'] = ModelUsers::select('id', 'full_name', 'role')->get();
+        $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name', 'instansi.nama_instansi')->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
+            ->leftJoin('instansi', 'surat.id_instansi', '=', 'instansi.id')->where('type', '0')->get();
         $i = 1;
-        foreach($data['letter'] as $letter){
+
+        foreach ($data['users'] as $user) {
+            if ($user->role == 0) {
+                $user->role = "Admin";
+            }
+            if ($user->role == 1) {
+                $user->role = "Waka Kesiswaan";
+            }
+
+            if ($user->role == 2) {
+                $user->role = "Waka Kurikulum";
+            }
+
+            if ($user->role == 3) {
+                $user->role = "Waka Hubin";
+            }
+        }
+        foreach ($data['letter'] as $letter) {
             $letter->no = $i;
-            if($letter->role == 0){
+            if ($letter->role == 0) {
                 $letter->role = "Admin";
             }
-            if($letter->role == 1){
+            if ($letter->role == 1) {
                 $letter->role = "Waka Kesiswaan";
             }
 
-            if($letter->role == 2){
+            if ($letter->role == 2) {
                 $letter->role = "Waka Kurikulum";
             }
 
-            if($letter->role == 3){
+            if ($letter->role == 3) {
                 $letter->role = "Waka Hubin";
             }
             $i++;
         }
-        return view('surat_masuk',$data);
+        return view('surat_masuk', $data);
     }
 
-    public function add(){
-        $data['instance']= ModelInstance::select('id','nama_instansi')->get();
-        $data['users']=ModelUsers::select('id','full_name','role')->get();
-        foreach($data['users'] as $user){
-            if($user->role == 0){
+    public function add()
+    {
+        $data['instance'] = ModelInstance::select('id', 'nama_instansi')->get();
+        $data['users'] = ModelUsers::select('id', 'full_name', 'role')->get();
+        foreach ($data['users'] as $user) {
+            if ($user->role == 0) {
                 $user->role = "Admin";
             }
-            if($user->role == 1){
+            if ($user->role == 1) {
                 $user->role = "Waka Kesiswaan";
             }
 
-            if($user->role == 2){
+            if ($user->role == 2) {
                 $user->role = "Waka Kurikulum";
             }
 
-            if($user->role == 3){
+            if ($user->role == 3) {
                 $user->role = "Waka Hubin";
             }
         }
-        return view('add_surat',$data);
+        return view('add_surat', $data);
     }
-    public function store(Request $request){
-        $validate = Validator::make($request->all(),[
-            '*' => 'required',     
+    public function store(Request $request)
+    {
+        $validate = Validator::make($request->all(), [
+            '*' => 'required',
         ]);
 
-        if($validate->fails()){
+        if ($validate->fails()) {
             $request->session()->flash('issuccess', false);
             $request->session()->flash('message', $validate->errors()->first());
         }
-        ModelLetter::create($request->all());
+        $file =$request->file('foto_lampiran');
+        $fileNames = "";
+        foreach($file as $f){
+            $name = uniqid()."-".Carbon::now()->toDateTimeString().".jpg";
+            Storage::disk("local")->put("public/".$name,file_get_contents($f));
+            $fileNames.= $name.",";
+        }
+        $input = $request->all();
+        $input['foto_lampiran'] = substr($fileNames,0,strlen($fileNames) - 1);
+        ModelLetter::create($input);
+
         return redirect()->back();
     }
 
 
 
-    public function update(Request $request,$id){
-
+    public function update(Request $request, $id)
+    {
     }
 
-    public function destroy($id){        
+    public function destroy($id)
+    {
         $letter = ModelLetter::find($id);
         $letter->delete();
-        Session::flash('message', 'Data Pengguna berhasil dihapus.'); 
-        Session::flash('icon', 'success'); 
+        Session::flash('message', 'Data Pengguna berhasil dihapus.');
+        Session::flash('icon', 'success');
+        return redirect()->back();
+    }
+
+    public function show($id){
+        $data['letter'] =   $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name', 'instansi.nama_instansi')->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
+        ->leftJoin('instansi', 'surat.id_instansi', '=', 'instansi.id')->where('type', '0')->find($id);
+        $data['letter']->foto_lampiran = explode(',',$data['letter']->foto_lampiran);
+        $data['instance'] = ModelInstance::select('id', 'nama_instansi')->get();
+        $data['users'] = ModelUsers::select('id', 'full_name', 'role')->get();
+
+        foreach ($data['users'] as $user) {
+            if ($user->role == 0) {
+                $user->role = "Admin";
+            }
+            if ($user->role == 1) {
+                $user->role = "Waka Kesiswaan";
+            }
+
+            if ($user->role == 2) {
+                $user->role = "Waka Kurikulum";
+            }
+
+            if ($user->role == 3) {
+                $user->role = "Waka Hubin";
+            }
+        }
+        return view('detail_surat',$data);
+    }
+
+    public function disposisi(Request $request,$id){
+        $data = ModelLetter::find($id);
+        $data->update([
+            'id_users'=>$request->id_users,
+            'is_disposisi'=>true
+        ]);
         return redirect()->back();
     }
 }

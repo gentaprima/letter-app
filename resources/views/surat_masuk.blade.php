@@ -14,7 +14,7 @@
                   <a class="btn btn-outline-primary size-btn" href="/dashboard/surat-masuk/tambah">Tambah Data</a>
                 </div>
                 <div class="ms-md-auto d-flex">
-                  <div class="input-group" style="margin-right: 10px;width:100%">
+                  <div class="input-group" style="margin-right: 10px;width:100%;z-index:1">
                     <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
                     <input type="text" class="form-control" placeholder="Cari Data">
                   </div>
@@ -47,17 +47,17 @@
                           <td class="text-xs font-weight-bold mb-0">{{$row->perihal}}</td>
                           <td class="text-xs font-weight-bold mb-0">{{$row->lampiran}}</td>
                           <td class="text-xs font-weight-bold mb-0">
-                            <a href="#" {{--onclick="edit({{$row->id}})" --}} style="margin-right:10px" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                              Edit
-                            </a>                    
+                            {{-- <a href="#" onclick="edit({{$row->id}})"  style="margin-right:10px" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"> --}}
+                              {{-- Edit --}}
+                            {{-- </a>                     --}}
 
-                            <a  href="/dashboard/surat-masuk/{{ $row->id}}" style="margin-right:10px" class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                            <a  href="/dashboard/surat-masuk/detail/{{$row->id}}" style="margin-right:10px" class="text-success font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                              Lihat detail
+                            </a>                      
+                            <a  href="/dashboard/surat-masuk/{{ $row->id}}"  class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                               Hapus
                             </a>               
 
-                            <a class="text-success font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                              Lihat detail
-                            </a>                      
                           </td>
                       </tr>
                       @endforeach
@@ -69,4 +69,5 @@
     </section>
 </div>
 @endsection
+
 

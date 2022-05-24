@@ -10,24 +10,22 @@
     <section class="content">
         <div class="container-fluid">
             <div class="card p-5 rounded mb-3">
+              <div class="d-flex d-flex align-items-center">
+                <button class="btn btn-outline-primary size-btn" onclick="add()" data-toggle="modal" data-target="#modal-form">Tambah Data</button>
+                <div class="ms-md-auto d-flex">
+                  <div class="input-group" style="margin-right: 10px;width:100%">
+                    <span style="z-index: 1" class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+                    <input type="text" class="form-control" placeholder="Cari Data">
+                  </div>
+                </div>
+              </div>                        
               <div class="table-responsive p-0">
-
-              
-                 <div class="d-flex d-flex align-items-center">
-                       <button class="btn btn-outline-primary size-btn" onclick="add()" data-toggle="modal" data-target="#modal-form">Tambah Data</button>
-                       <div class="ms-md-auto d-flex">
-                        <div class="input-group" style="margin-right: 10px;width:100%">
-                            <span style="z-index: 1" class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" placeholder="Cari Data">
-                        </div>
-                       </div>
-                 </div>                        
-                <table id="example1" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Lengkap</th>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
+              <table id="example1" class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Lengkap</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Telepon</th>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
                         </tr>
