@@ -1,8 +1,8 @@
 @extends('master')
 
 @section('title-link','Beranda')
-@section('sub-title-link','Tambah Surat Masuk')
-@section('title','Tambah Surat Masuk')
+@section('sub-title-link','Detail Surat Masuk')
+@section('title','Detail Surat Masuk')
 
 @section('content')
 <!-- Content Wrapper. Contains page content -->
