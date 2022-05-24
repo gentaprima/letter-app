@@ -13,8 +13,11 @@ class DropColumnSurat extends Migration
      */
     public function up()
     {
-        //
-    }
+        Schema::table("surat",function($table){
+            $table->dropColumn("dari");
+            $table->dropColumn("kepada");
+        });   
+     }
 
     /**
      * Reverse the migrations.
@@ -23,9 +26,6 @@ class DropColumnSurat extends Migration
      */
     public function down()
     {
-        Schema::table("surat",function($table){
-            $table->dropColumn("dari");
-            $table->dropColumn("kepada");
-        });
+        
     }
 }

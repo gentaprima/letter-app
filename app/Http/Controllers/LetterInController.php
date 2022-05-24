@@ -98,6 +98,7 @@ class LetterInController extends Controller
             $fileNames.= $name.",";
         }
         $input = $request->all();
+        $input['is_arsip'] = true;
         $input['foto_lampiran'] = substr($fileNames,0,strlen($fileNames) - 1);
         ModelLetter::create($input);
 
