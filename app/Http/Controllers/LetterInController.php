@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ArsipModel;
+use App\Models\EvaluationLetter;
 use App\Models\ModelInstance;
 use App\Models\ModelLetter;
 use App\Models\ModelUsers;
 use Carbon\Carbon;
-use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
@@ -18,7 +19,11 @@ class LetterInController extends Controller
     {
         $data['users'] = ModelUsers::select('id', 'full_name', 'role')->get();
         $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name', 'instansi.nama_instansi')->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
-            ->leftJoin('instansi', 'surat.id_instansi', '=', 'instansi.id')->where('type', '0')->get();
+            ->leftJoin('instansi', 'surat.id_instansi', '=', 'instansi.id')->where('type', '0');
+        if(session("users")['role'] !== 0){
+            $data['letter'] = $data['letter']->where('id_users',session("users")['id']);
+        }
+        $data['letter'] = $data['letter']->get();
         $i = 1;
 
         foreach ($data['users'] as $user) {
@@ -105,12 +110,6 @@ class LetterInController extends Controller
         return redirect()->back();
     }
 
-
-
-    public function update(Request $request, $id)
-    {
-    }
-
     public function destroy($id)
     {
         $letter = ModelLetter::find($id);
@@ -126,7 +125,7 @@ class LetterInController extends Controller
         $data['letter']->foto_lampiran = explode(',',$data['letter']->foto_lampiran);
         $data['instance'] = ModelInstance::select('id', 'nama_instansi')->get();
         $data['users'] = ModelUsers::select('id', 'full_name', 'role')->get();
-
+        $data['isArsip'] = ArsipModel::where('id_surat',$id)->count() > 0 ? false : true;
         foreach ($data['users'] as $user) {
             if ($user->role == 0) {
                 $user->role = "Admin";
@@ -150,7 +149,12 @@ class LetterInController extends Controller
         $data = ModelLetter::find($id);
         $data->update([
             'id_users'=>$request->id_users,
-            'is_disposisi'=>true
+        ]);
+       EvaluationLetter::create([
+            'disposisi'=>$request->id_users,
+            'tanggal'=>Carbon::now(),
+            'evaluasi'=>$request->evaluasi,
+            'tindak_lanjut'=>$request->tindak_lanjut
         ]);
         return redirect()->back();
     }

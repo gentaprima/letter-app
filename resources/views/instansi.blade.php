@@ -108,13 +108,13 @@
             <label for="exampleInputEmail1">Nama Instansi</label>
             <div class="input-group">
               <span class="input-group-text text-body"><i class="fas fa-landmark" aria-hidden="true"></i></span>
-              <input type="text" name="nama_instansi" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nama Instansi">
+              <input type="text"  name="nama_instansi" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nama Instansi">
             </div>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Alamat Instansi</label>
             <div class="input-group">
-              <textarea type="password"  name="alamat_instansi" class="form-control" id="exampleInputPassword1"></textarea>
+              <textarea placeholder="Alamat Instansi" type="password"  style="padding-left: 10px !important" name="alamat_instansi" class="form-control" id="exampleInputPassword1"></textarea>
             </div>
           </div>
         @csrf

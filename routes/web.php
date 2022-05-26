@@ -42,6 +42,7 @@ Route::group(['middleware' => 'check.login','prefix'=>'/dashboard'], function ()
 
 
     Route::post('/arsip','ArsipController@store');
+    Route::get('/arsip','ArsipController@index');
 
     //Route Instance
     Route::get("/instansi", "InstansiController@index");

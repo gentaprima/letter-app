@@ -57,7 +57,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  {{ Request::is('dashboard/arsip-surat') ? 'active' : '' }}" href="/dashboard/arsip-surat">
+          <a class="nav-link  {{ Request::is('dashboard/arsip') ? 'active' : '' }}" href="/dashboard/arsip">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
                 <path class="color-background" d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15h9.286zM5.5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1zM.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8H.8z"/>
@@ -88,6 +88,7 @@
             <span class="nav-link-text ms-1">Surat Keluar</span>
           </a>
         </li> 
+        @if(session('users')['role'] == 0)
         <li class="nav-item">
           <a class="nav-link  {{ Request::is('dashboard/instansi') ? 'active' : '' }}" href="/dashboard/instansi">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -108,6 +109,8 @@
             <span class="nav-link-text ms-1">Data Instansi</span>
           </a>
         </li>
+        @endif
+        @if(session('users')['role'] == 0)
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Laporan</h6>
         </li>
@@ -132,9 +135,11 @@
             <span class="nav-link-text ms-1">Surat Keluar</span>
           </a>
         </li>
+        @endif
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Pengguna</h6>
         </li>
+        @if(session('users')['role'] == 0)
         <li class="nav-item">
           <a class="nav-link  {{ Request::is('dashboard/data-pengguna') ? 'active' : '' }}" href="/dashboard/data-pengguna">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -147,6 +152,7 @@
             <span class="nav-link-text ms-1">Petugas</span>
           </a>
         </li>
+        @endif
         <li class="nav-item">
           <a class="nav-link  " href="../pages/profile.html">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">

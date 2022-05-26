@@ -206,6 +206,7 @@
                 <option value="1">Waka Kesiswaan</option>
                 <option value="2">Waka Kurikulum</option>
                 <option value="3">Waka Hubin</option>
+                <option value="4">Kepala Sekolah</option>
               </select>
             </div>
           </div>
