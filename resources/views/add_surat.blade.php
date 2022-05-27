@@ -1,8 +1,8 @@
 @extends('master')
 
 @section('title-link','Beranda')
-@section('sub-title-link','Tambah Surat Masuk')
-@section('title','Tambah Surat Masuk')
+@section('sub-title-link',$title)
+@section('title',$title)
 
 @section('content')
 <!-- Content Wrapper. Contains page content -->
@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <div class="card p-5 rounded mb-3">
                     <div class="form-group">
-                        <form action="/dashboard/surat-masuk/tambah" method="POST"  enctype="multipart/form-data">
+                        <form action="/dashboard/surat/tambah/{{Request::segment(4)}}" method="POST"  enctype="multipart/form-data">
                         <div class="row">
                           <div class="col-lg-6  pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1">No Surat</label>
@@ -106,7 +106,6 @@
                             <div class="content-upload row pb-3">
   
                             </div>
-                            <input type="hidden" name="type" value="0">
                             @csrf
                             <button type="submit" class="btn btn-primary">Simpan</button>
                             <a href="/dashboard/surat-masuk" class="btn btn-secondary">Kembali</a>

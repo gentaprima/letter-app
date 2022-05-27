@@ -14,19 +14,23 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
-class LetterInController extends Controller
+class LetterController extends Controller
 {
-    public function index()
+    public function index($type)
     {
         $data['users'] = ModelUsers::select('id', 'full_name', 'role')->get();
         $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name', 'instansi.nama_instansi')->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
-            ->leftJoin('instansi', 'surat.id_instansi', '=', 'instansi.id')->where('type', '0');
+            ->leftJoin('instansi', 'surat.id_instansi', '=', 'instansi.id')->where('type', $type);
         if(session("users")['role'] !== 0){
             $data['letter'] = $data['letter']->where('id_users',session("users")['id']);
         }
         $data['letter'] = $data['letter']->get();
         $i = 1;
-
+        if($type == 0){
+            $data['title'] = "Data Surat Masuk";
+        }else{
+            $data['title'] = "Data Surat Keluar";
+        }
         foreach ($data['users'] as $user) {
             if ($user->role == 0) {
                 $user->role = "Admin";
@@ -64,10 +68,15 @@ class LetterInController extends Controller
         return view('surat_masuk', $data);
     }
 
-    public function add()
+    public function add($type)
     {
         $data['instance'] = ModelInstance::select('id', 'nama_instansi')->get();
         $data['users'] = ModelUsers::select('id', 'full_name', 'role')->get();
+        if($type == 0){
+            $data['title'] = "Tambah Surat Masuk";
+        }else{
+            $data['title'] = "Tambah Surat Keluar";
+        }
         foreach ($data['users'] as $user) {
             if ($user->role == 0) {
                 $user->role = "Admin";
@@ -86,7 +95,7 @@ class LetterInController extends Controller
         }
         return view('add_surat', $data);
     }
-    public function store(Request $request)
+    public function store(Request $request,$type)
     {
         $validate = Validator::make($request->all(), [
             '*' => 'required',
@@ -105,9 +114,9 @@ class LetterInController extends Controller
         }
         $input = $request->all();
         $input['is_arsip'] = true;
+        $input['type'] = $type;
         $input['foto_lampiran'] = substr($fileNames,0,strlen($fileNames) - 1);
         ModelLetter::create($input);
-
         return redirect()->back();
     }
 
@@ -120,9 +129,9 @@ class LetterInController extends Controller
         return redirect()->back();
     }
 
-    public function show($id){
+    public function show($id,$type){
         $data['letter'] =   $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name', 'instansi.nama_instansi')->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
-        ->leftJoin('instansi', 'surat.id_instansi', '=', 'instansi.id')->where('type', '0')->find($id);
+        ->leftJoin('instansi', 'surat.id_instansi', '=', 'instansi.id')->where('type', $type)->find($id);
         $data['letter']->foto_lampiran = explode(',',$data['letter']->foto_lampiran);
         $data['instance'] = ModelInstance::select('id', 'nama_instansi')->get();
         $data['users'] = ModelUsers::select('id', 'full_name', 'role')->get();

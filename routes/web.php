@@ -32,14 +32,13 @@ Route::group(['middleware' => 'check.login','prefix'=>'/dashboard'], function ()
     Route::get('/users/auth/logout', 'UsersController@logout');
 
     //Route letter
-    Route::get("/surat-masuk/tambah", "LetterInController@add");
-    Route::post("/surat-masuk/tambah", "LetterInController@store");
-    Route::get("/surat-masuk", "LetterInController@index");
-    Route::get("/surat-masuk/{id}", "LetterInController@destroy");
-    Route::get("/surat-masuk/detail/{id}", "LetterInController@show");
-    Route::post("/surat-masuk/disposisi/{id}", "LetterInController@disposisi");
-    Route::get("/surat-keluar", "LetterOutController@index");
-
+    Route::get("/surat/tambah/{type}", "LetterController@add");
+    Route::post("/surat/tambah/{type}", "LetterController@store");
+    
+    Route::get("/surat/{type}", "LetterController@index");
+    Route::get("/surat/hapus/{id}", "LetterController@destroy");
+    Route::get("/surat/detail/{id}/{type}", "LetterController@show");
+    Route::post("/surat-masuk/disposisi/{id}", "LetterController@disposisi");
 
     Route::post('/arsip','ArsipController@store');
     Route::get('/arsip','ArsipController@index');
@@ -67,6 +66,6 @@ Route::get('storage/{filename}', function ($filename)
     $response->header("Content-Type", $type);
     
     return $response;
-    });
+});
 // Route::middleware(['auth','checkLogin'])->group(function(){
 // });

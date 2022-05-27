@@ -125,7 +125,7 @@
                                 @endif
                                 <button onclick="add()" class="btn btn-primary">Disposisi</button>
                                 <button onclick="add()" class="btn btn-warning">Riwayat Tindak Lanjut</button>
-                                <a href="/dashboard/surat-masuk" class="btn btn-secondary">Kembali</a>
+                                <a href="/dashboard/surat/{{Request::segment(5)}}" class="btn btn-secondary">Kembali</a>
                             </div>
                           </div>
                       </div>

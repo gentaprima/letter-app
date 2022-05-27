@@ -1,8 +1,8 @@
 @extends('master')
 
 @section('title-link','Beranda')
-@section('sub-title-link','Data Surat Masuk')
-@section('title','Data Surat Masuk')
+@section('sub-title-link','Arsip Surat')
+@section('title','Arsip Surat')
 @section('content')
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -30,6 +30,7 @@
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Perihal</th>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Keterangan</th>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah Lampiran</th>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tipe Surat</th>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
                       </tr>
                   </thead>
@@ -46,18 +47,15 @@
                           <td class="text-xs font-weight-bold mb-0">{{$row->perihal}}</td>
                           <td class="text-xs font-weight-bold mb-0">{{$row->keterangan}}</td>
                           <td class="text-xs font-weight-bold mb-0">{{$row->lampiran}}</td>
+                          <td class="text-xs font-weight-bold mb-0">{{$row->type  == 0 ? "Surat Masuk" : "Surat Keluar"}}</td>
                           <td class="text-xs font-weight-bold mb-0">
                             {{-- <a href="#" onclick="edit({{$row->id}})"  style="margin-right:10px" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"> --}}
                               {{-- Edit --}}
                             {{-- </a>                     --}}
 
-                            <a  href="/dashboard/surat-masuk/detail/{{$row->id}}" style="margin-right:10px" class="text-success font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                            <a  href="/dashboard/surat/detail/{{$row->id}}/{{$row->type}}" style="margin-right:10px" class="text-success font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                               Lihat detail
                             </a>                      
-                            <a  href="/dashboard/surat-masuk/{{ $row->id}}"  class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                              Hapus
-                            </a>               
-
                           </td>
                       </tr>
                       @endforeach

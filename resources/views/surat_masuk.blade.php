@@ -1,17 +1,18 @@
 @extends('master')
 
 @section('title-link','Beranda')
-@section('sub-title-link','Data Surat Masuk')
-@section('title','Data Surat Masuk')
+@section('sub-title-link',$title)
+@section('title',$title)
 @section('content')
 <!-- Content Wrapper. Contains page content -->
+
 <div class="content-wrapper">
     <section class="content">
         <div class="container-fluid">
             <div class="card p-5 rounded mb-3">
               <div class="d-flex align-items-center">
                 <div class="input-group">
-                  <a class="btn btn-outline-primary size-btn" href="/dashboard/surat-masuk/tambah">Tambah Data</a>
+                  <a class="btn btn-outline-primary size-btn" href="/dashboard/surat/tambah/{{Request::segment(3)}}">Tambah Data</a>
                 </div>
                 <div class="ms-md-auto d-flex">
                   <div class="input-group" style="margin-right: 10px;width:100%;z-index:1">
@@ -51,10 +52,10 @@
                               {{-- Edit --}}
                             {{-- </a>                     --}}
 
-                            <a  href="/dashboard/surat-masuk/detail/{{$row->id}}" style="margin-right:10px" class="text-success font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                            <a  href="/dashboard/surat/detail/{{$row->id}}/{{Request::segment(3)}}" style="margin-right:10px" class="text-success font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                               Lihat detail
                             </a>                      
-                            <a  href="/dashboard/surat-masuk/{{ $row->id}}"  class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                            <a  href="/dashboard/surat/hapus/{{ $row->id}}"  class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                               Hapus
                             </a>               
 
