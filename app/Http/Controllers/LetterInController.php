@@ -9,6 +9,7 @@ use App\Models\ModelLetter;
 use App\Models\ModelUsers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -98,7 +99,7 @@ class LetterInController extends Controller
         $file =$request->file('foto_lampiran');
         $fileNames = "";
         foreach($file as $f){
-            $name = uniqid()."-".Carbon::now()->toDateTimeString().".jpg";
+            $name = uniqid().".jpg";
             Storage::disk("local")->put("public/".$name,file_get_contents($f));
             $fileNames.= $name.",";
         }
