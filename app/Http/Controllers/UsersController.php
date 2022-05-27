@@ -68,7 +68,7 @@ class UsersController extends Controller
             'gender' => $request->gender,
             'date_birth' => $request->birthDate,
             'password'  => Hash::make($request->password),
-            'role' => 1,
+            'role' => $request->role,
         ]);
         $users->save();
         Session::flash('message', 'Pengguna baru berhasil ditambahkan.'); 
@@ -82,7 +82,8 @@ class UsersController extends Controller
             'email'    => 'required|email',
             'phoneNumber'    => 'required|numeric|min:11',
             'gender'           => 'required',
-            'birthDate'           => 'required|date'
+            'birthDate'           => 'required|date',
+            'role'=>'required'
 
         ],[
             'fullName.required' => "Nama Lengkap harus dilengkapi",
