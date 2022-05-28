@@ -105,16 +105,16 @@
     </section>
 </div>
 <script>
-  $('#surat_masuk').DataTable( {
-    dom: 'Bfrtip',
-    "searching": false,
-    paging: false,
-    info: false,
-    ordering: false,
-    buttons: [
-      'copyHtml5', 'excelHtml5', 'pdfHtml5', 'csvHtml5'
-    ]
-} );
+//   $('#surat_masuk').DataTable( {
+//     dom: 'Bfrtip',
+//     "searching": false,
+//     paging: false,
+//     info: false,
+//     ordering: false,
+//     buttons: [
+//       'copyHtml5', 'excelHtml5', 'pdfHtml5', 'csvHtml5'
+//     ]
+// } );
 </script>
 @endsection
 
