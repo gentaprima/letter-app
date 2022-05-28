@@ -57,7 +57,8 @@
                               </span>
                               <input required type="date" name="tgl_surat" class="form-control" id="exampleInputtanggal_surat1" aria-describedby="tanggalSuratHelp" placeholder="Tanggal Surat">
                             </div>
-                          </div>          
+                          </div>         
+                          @if(Request::segment(4) == 0) 
                           <div class="col-lg-3 pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1">Dari</label>
                             <div class="input-group">
@@ -68,7 +69,8 @@
                                 @endforeach
                               </select>
                             </div>
-                          </div>          
+                          </div>  
+                          @endif       
                           <div class="col-lg-3 pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1">Kepada</label>
                             <div class="input-group">

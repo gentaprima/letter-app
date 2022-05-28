@@ -46,6 +46,9 @@ class LetterController extends Controller
             if ($user->role == 3) {
                 $user->role = "Waka Hubin";
             }
+            if($user->role == 4){
+                $user->role = "Kepala Sekolah";
+            }
         }
         foreach ($data['letter'] as $letter) {
             $letter->no = $i;
@@ -62,6 +65,9 @@ class LetterController extends Controller
 
             if ($letter->role == 3) {
                 $letter->role = "Waka Hubin";
+            }
+            if($user->role == 4){
+                $user->role = "Kepala Sekolah";
             }
             $i++;
         }
@@ -91,6 +97,9 @@ class LetterController extends Controller
 
             if ($user->role == 3) {
                 $user->role = "Waka Hubin";
+            }
+            if($user->role == 4){
+                $user->role = "Kepala Sekolah";
             }
         }
         return view('add_surat', $data);
@@ -150,6 +159,10 @@ class LetterController extends Controller
 
             if ($user->role == 3) {
                 $user->role = "Waka Hubin";
+            }
+
+            if($user->role == 4){
+                $user->role = "Kepala Sekolah";
             }
         }
         return view('detail_surat',$data);

@@ -31,7 +31,7 @@ class UsersController extends Controller
             'confirmPassword'    => 'required',
             'gender'           => 'required',
             'birthDate'           => 'required|date',
-            'role'=>'required|in:0,1,2,3'
+            'role'=>'required|in:0,1,2,3,4'
 
         ],[
             'fullName.required' => "Nama Lengkap harus dilengkapi",
@@ -44,6 +44,7 @@ class UsersController extends Controller
             'password.confirmed'       => "Password dan Konfirmasi password harus sama",
         ]);
         if($validate->fails()){
+            return $validate->errors()->first();
             Session::flash('message', $validate->errors()->first()); 
             Session::flash('icon', 'error'); 
             return redirect()->back()
@@ -94,6 +95,7 @@ class UsersController extends Controller
         ]);
 
         if($validate->fails()){
+            return $validate->errors()->first();
             Session::flash('message', $validate->errors()->first()); 
             Session::flash('icon', 'error'); 
             return redirect()->back()

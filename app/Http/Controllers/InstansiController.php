@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 class InstansiController extends Controller
 {
     public function index(){
-        $data['instance'] = ModelInstance::paginate(10);
+        $data['instance'] = ModelInstance::where('nama_instansi','!=',"SMK Teratai Putih Global 2 Bekasi")->paginate(10);
         return view('instansi',$data);
     }
 
