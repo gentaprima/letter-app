@@ -10,6 +10,7 @@
 <div class="content-wrapper">
           <div class="container-fluid">
             <div class="card p-5 rounded mb-3">
+                
                  <div class="d-flex">
                        <button id="add" onclick="add()" class="btn btn-outline-primary size-btn" data-toggle="modal" data-target="#exampleModal">Tambah Data</button>
                  </div>                        

@@ -6,14 +6,17 @@
 @section('content')
 <!-- Content Wrapper. Contains page content -->
 
+
 <div class="content-wrapper">
     <section class="content">
         <div class="container-fluid">
             <div class="card p-5 rounded mb-3">
               <div class="d-flex align-items-center">
+                @if(session('users')->role === 0)
                 <div class="input-group">
                   <a class="btn btn-outline-primary size-btn" href="/dashboard/surat/tambah/{{Request::segment(3)}}">Tambah Data</a>
                 </div>
+                @endif
                 <div class="ms-md-auto d-flex">
                   <div class="input-group" style="margin-right: 10px;width:100%;z-index:1">
                     <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
@@ -22,7 +25,7 @@
                 </div>
               </div>                        
               <div class="table-responsive p-0">
-                 <table id="example1" class="table table-striped">
+                 <table id="surat_masuk" class="table table-striped">
                   <thead>
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
@@ -30,7 +33,7 @@
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No Agenda</th>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Terima</th>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Surat</th>
-                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Dari/Kepada</th>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{Request::segment(3) == 1 ? 'Kepada/Dari' : 'Dari/Kepada' }}</th>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Perihal</th>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah Lampiran</th>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
@@ -65,10 +68,54 @@
                     </tbody>
                   </table>
                 </div>
+                <div class="d-flex flex-row ms-md-auto">
+                  @if (!$letter->onFirstPage())
+                  <a rel="prev" href="{{ $letter->previousPageUrl() }}" style="margin-right:20px" class="btn btn-primary size-btn" data-toggle="modal" data-target="#modal-form">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                    </svg>
+                      Previous 
+                  </a>
+                  @else 
+                  <a rel="prev" style="margin-right:20px" class="btn btn-secondary size-btn" data-toggle="modal" data-target="#modal-form">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                    </svg>
+                      Previous 
+                  </a>
+                  @endif
+                  @if($letter->hasMorePages())
+                  <a href="{{ $letter->nextPageUrl() }}" rel="next" class="btn btn-primary size-btn" data-toggle="modal" data-target="#modal-form">
+                    Next 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                    </svg>
+                  </a>
+                  @else
+                  <a  class="btn btn-secondary size-btn" data-toggle="modal" data-target="#modal-form">
+                    Next 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                    </svg>
+                  </a>
+                  @endif
+                </div>       
                 </div>
         </div>
     </section>
 </div>
+<script>
+  $('#surat_masuk').DataTable( {
+    dom: 'Bfrtip',
+    "searching": false,
+    paging: false,
+    info: false,
+    ordering: false,
+    buttons: [
+      'copyHtml5', 'excelHtml5', 'pdfHtml5', 'csvHtml5'
+    ]
+} );
+</script>
 @endsection
 
 

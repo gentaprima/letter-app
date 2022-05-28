@@ -58,29 +58,31 @@
                               <input disabled value="{{$letter->tgl_surat}}" required type="date" name="tgl_surat" class="form-control" id="exampleInputtanggal_surat1" aria-describedby="tanggalSuratHelp" placeholder="Tanggal Surat">
                             </div>
                           </div>          
-                          <div class="col-lg-3 pb-4 col-sm-12 col-md-6">
-                            <label for="exampleInputEmail1">Dari</label>
+                          <div class="{{Request::segment(5) == 1 ? 'col-lg-6' : 'col-lg-3'}} pb-4 col-sm-12 col-md-6">
+                            <label for="exampleInputEmail1">{{Request::segment(5) == 1 ? 'Kepada' : 'Dari'}}</label>
                             <div class="input-group">
                               <select disabled class="form-select" name="id_instansi" aria-label="Default select example">
-                                <option selected="">Pilih Data</option>
+                                <option disabled selected="">Pilih Data</option>
                                 @foreach($instance as $ins)
-                                    <option value="{{$ins->id}}">{{$ins->nama_instansi}}</option>
+                                    <option value="{{$ins->id}}" {{ $letter->id_instansi == $ins->id ? 'selected' : '' }}>{{$ins->nama_instansi}}</option>
                                 @endforeach
                               </select>
                             </div>
-                          </div>          
+                          </div>  
+                          @if(Request::segment(5) == 0) 
                           <div class="col-lg-3 pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1">Kepada</label>
                             <div class="input-group">
-                              {{-- <input disabled required type="date" name="tanggal_surat" class="form-control" id="exampleInputtanggal_surat1" aria-describedby="tanggalSuratHelp" placeholder="Tanggal Surat"> --}}
-                                  <select disabled class="form-select" name="id_users" aria-label="Default select example">
-                                    <option selected="">Pilih Data</option>
-                                    @foreach($users as $user)
-                                      <option value="{{$user->id}}">{{$user->full_name." - ". $user->role}}</option>
-                                    @endforeach
-                                  </select>
+                              {{-- <input required type="date" name="tanggal_surat" class="form-control" id="exampleInputtanggal_surat1" aria-describedby="tanggalSuratHelp" placeholder="Tanggal Surat"> --}}
+                              <select disabled class="form-select" name="id_users" aria-label="Default select example">
+                                <option selected="">Pilih Data</option>
+                                @foreach($users as $user)
+                                  <option value="{{$user->id}}" {{ $letter->id_users == $user->id ? 'selected' : '' }}  >{{$user->full_name." - ". $user->role}}</option>
+                                @endforeach
+                              </select>
                             </div>
                           </div>
+                          @endif       
                           <div class="col-lg-12  pb-4 col-sm-12 col-md-12">
                             <label for="exampleInputEmail1">Perihal Surat</label>
                             <div class="input-group">
@@ -104,6 +106,34 @@
                               <input disabled value="{{$letter->lampiran}}" required id="number-photo" type="number" name="lampiran" class="form-control" id="exampleInputlampiran1" aria-describedby="no_agendaHelp" placeholder="Tekan Enter Jika Selesai">
                             </div>
                           </div>
+                        @if(Request::segment(5) == 0)
+                        <div class="col-lg-12">
+                          <label for="">Riwayat Tindak Lanjut</label>
+                          <table id="example1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Diteruskan Kepada</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Evaluasi</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tindak Lanjut</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              @foreach($eval as $e)
+                              <tr>
+                                <td class="text-xs font-weight-bold mb-0">1.</td>
+                                <td class="text-xs font-weight-bold mb-0">{{ $e->full_name." - ".$e->role}}</td>
+                                <td class="text-xs font-weight-bold mb-0">{{$e->evaluasi}}</td>
+                                <td class="text-xs font-weight-bold mb-0">{{$e->tindak_lanjut}}</td>
+                                <td class="text-xs font-weight-bold mb-0">{{$e->tanggal}}</td>
+                              </tr>
+                              @endforeach
+                            </tbody>
+                        </table>
+                        </div>
+                        @endif
+
                           <?php $i = 1 ?>
                             @foreach($letter->foto_lampiran as $foto)
                             <div class="col-lg-6  pb-4 col-sm-12 col-md-6">
@@ -124,7 +154,6 @@
                                 <button onclick="showArsip()" class="btn btn-success">Arsipkan</button>
                                 @endif
                                 <button onclick="add()" class="btn btn-primary">Disposisi</button>
-                                <button onclick="add()" class="btn btn-warning">Riwayat Tindak Lanjut</button>
                                 <a href="/dashboard/surat/{{Request::segment(5)}}" class="btn btn-secondary">Kembali</a>
                             </div>
                           </div>

@@ -58,9 +58,8 @@
                               <input required type="date" name="tgl_surat" class="form-control" id="exampleInputtanggal_surat1" aria-describedby="tanggalSuratHelp" placeholder="Tanggal Surat">
                             </div>
                           </div>         
-                          @if(Request::segment(4) == 0) 
-                          <div class="col-lg-3 pb-4 col-sm-12 col-md-6">
-                            <label for="exampleInputEmail1">Dari</label>
+                          <div class=" {{Request::segment(4) == 1 ? 'col-lg-6' : 'col-lg-3'}} pb-4 col-sm-12 col-md-6">
+                            <label for="exampleInputEmail1">{{Request::segment(4) == 1 ? 'Kepada' : 'Dari'}}</label>
                             <div class="input-group">
                               <select class="form-select" name="id_instansi" aria-label="Default select example">
                                 <option selected="">Pilih Data</option>
@@ -70,19 +69,20 @@
                               </select>
                             </div>
                           </div>  
-                          @endif       
+                          @if(Request::segment(4) == 0) 
                           <div class="col-lg-3 pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1">Kepada</label>
                             <div class="input-group">
                               {{-- <input required type="date" name="tanggal_surat" class="form-control" id="exampleInputtanggal_surat1" aria-describedby="tanggalSuratHelp" placeholder="Tanggal Surat"> --}}
-                                  <select class="form-select" name="id_users" aria-label="Default select example">
-                                    <option selected="">Pilih Data</option>
-                                    @foreach($users as $user)
-                                      <option value="{{$user->id}}">{{$user->full_name." - ". $user->role}}</option>
-                                    @endforeach
-                                  </select>
+                              <select class="form-select" name="id_users" aria-label="Default select example">
+                                <option selected="">Pilih Data</option>
+                                @foreach($users as $user)
+                                <option value="{{$user->id}}">{{$user->full_name." - ". $user->role}}</option>
+                                @endforeach
+                              </select>
                             </div>
                           </div>
+                          @endif       
                           <div class="col-lg-12  pb-4 col-sm-12 col-md-12">
                             <label for="exampleInputEmail1">Perihal Surat</label>
                             <div class="input-group">
@@ -110,7 +110,7 @@
                             </div>
                             @csrf
                             <button type="submit" class="btn btn-primary">Simpan</button>
-                            <a href="/dashboard/surat-masuk" class="btn btn-secondary">Kembali</a>
+                            <a href="/dashboard/surat/{{Request::segment(4)}}" class="btn btn-secondary">Kembali</a>
                           </div>
                       </div>
                         </form>

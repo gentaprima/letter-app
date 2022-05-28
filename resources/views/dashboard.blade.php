@@ -17,7 +17,7 @@
                           <div class="col-8">
                             <div class="numbers">
                               <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah Surat Masuk</p>
-                                <span class="font-weight-bolder mb-0 text-success text-sm font-weight-bolder">55</span>
+                                <span class="font-weight-bolder mb-0 text-success text-sm font-weight-bolder">{{ $letterIn }}</span>
                             </div>
                           </div>
                           <div class="col-4 text-end">
@@ -36,8 +36,8 @@
                         <div class="row">
                           <div class="col-8">
                             <div class="numbers">
-                              <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah Surat Masuk</p>
-                                <span class="font-weight-bolder mb-0 text-success text-sm font-weight-bolder">55</span>
+                              <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah Surat Keluar</p>
+                                <span class="font-weight-bolder mb-0 text-success text-sm font-weight-bolder">{{ $letterOut }}</span>
                             </div>
                           </div>
                           <div class="col-4 text-end">
@@ -59,7 +59,7 @@
                             <div class="numbers">
                               <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah Instansi</p>
                               <h5 class="font-weight-bolder mb-0">
-                                <span class="font-weight-bolder mb-0 text-success text-sm font-weight-bolder">55</span>
+                                <span class="font-weight-bolder mb-0 text-success text-sm font-weight-bolder">{{ $instance }}</span>
                               </h5>
                             </div>
                           </div>

@@ -9,7 +9,6 @@ use App\Models\ModelLetter;
 use App\Models\ModelUsers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -24,7 +23,7 @@ class LetterController extends Controller
         if(session("users")['role'] !== 0){
             $data['letter'] = $data['letter']->where('id_users',session("users")['id']);
         }
-        $data['letter'] = $data['letter']->get();
+        $data['letter'] = $data['letter']->paginate(10);
         $i = 1;
         if($type == 0){
             $data['title'] = "Data Surat Masuk";
@@ -109,7 +108,6 @@ class LetterController extends Controller
         $validate = Validator::make($request->all(), [
             '*' => 'required',
         ]);
-
         if ($validate->fails()) {
             $request->session()->flash('issuccess', false);
             $request->session()->flash('message', $validate->errors()->first());
@@ -122,6 +120,7 @@ class LetterController extends Controller
             $fileNames.= $name.",";
         }
         $input = $request->all();
+        $input['id_users'] = isset($input['id_users']) ? $input['id_users'] : session('users')['id'];
         $input['is_arsip'] = true;
         $input['type'] = $type;
         $input['foto_lampiran'] = substr($fileNames,0,strlen($fileNames) - 1);
@@ -139,12 +138,33 @@ class LetterController extends Controller
     }
 
     public function show($id,$type){
-        $data['letter'] =   $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name', 'instansi.nama_instansi')->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
+        $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name', 'instansi.nama_instansi')->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
         ->leftJoin('instansi', 'surat.id_instansi', '=', 'instansi.id')->where('type', $type)->find($id);
         $data['letter']->foto_lampiran = explode(',',$data['letter']->foto_lampiran);
         $data['instance'] = ModelInstance::select('id', 'nama_instansi')->get();
         $data['users'] = ModelUsers::select('id', 'full_name', 'role')->get();
         $data['isArsip'] = ArsipModel::where('id_surat',$id)->count() > 0 ? false : true;
+        $data['eval'] = EvaluationLetter::where('id_surat',$data['letter']->id)->leftJoin('tbl_users','tindak_lanjut.disposisi','tbl_users.id')->get();
+        foreach ($data['eval'] as $user) {
+            if ($user->role == 0) {
+                $user->role = "Admin";
+            }
+            if ($user->role == 1) {
+                $user->role = "Waka Kesiswaan";
+            }
+
+            if ($user->role == 2) {
+                $user->role = "Waka Kurikulum";
+            }
+
+            if ($user->role == 3) {
+                $user->role = "Waka Hubin";
+            }
+
+            if($user->role == 4){
+                $user->role = "Kepala Sekolah";
+            }
+        }
         foreach ($data['users'] as $user) {
             if ($user->role == 0) {
                 $user->role = "Admin";
@@ -173,11 +193,12 @@ class LetterController extends Controller
         $data->update([
             'id_users'=>$request->id_users,
         ]);
-       EvaluationLetter::create([
+        EvaluationLetter::create([
             'disposisi'=>$request->id_users,
             'tanggal'=>Carbon::now(),
             'evaluasi'=>$request->evaluasi,
-            'tindak_lanjut'=>$request->tindak_lanjut
+            'tindak_lanjut'=>$request->tindak_lanjut,
+            'id_surat'=>$data->id,
         ]);
         return redirect()->back();
     }

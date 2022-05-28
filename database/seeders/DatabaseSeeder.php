@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         ModelUsers::create(
             [
                 'email'=>'eka123@gmail.com',
-                'full_name'=>"prasetya",
+                'full_name'=>"Eka",
                 'phone_number'=>'08929382332',
                 'password'=>Hash::make("google123"),
                 'gender'=>0,
