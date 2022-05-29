@@ -15,12 +15,12 @@
                 <div class="ms-md-auto d-flex">
                   <div class="input-group" style="margin-right: 10px;width:100%">
                     <span style="z-index: 1" class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                    <input type="text" class="form-control" placeholder="Cari Data">
+                    <input id="searchBox" type="text" class="form-control" placeholder="Cari Data">
                   </div>
                 </div>
               </div>                        
               <div class="table-responsive p-0">
-              <table id="example1" class="table table-striped">
+              <table id="table" class="table table-striped">
                 <thead>
                   <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
@@ -220,5 +220,8 @@
     </div>
   </div>
 </div>
+<script>
+  
+</script>
 @endsection
 

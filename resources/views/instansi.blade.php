@@ -10,11 +10,16 @@
 <div class="content-wrapper">
           <div class="container-fluid">
             <div class="card p-5 rounded mb-3">
-                
-                 <div class="d-flex">
+                 <div class="d-flex d-flex align-items-center">
                        <button id="add" onclick="add()" class="btn btn-outline-primary size-btn" data-toggle="modal" data-target="#exampleModal">Tambah Data</button>
-                 </div>                        
-                <table id="example1" class="table table-striped">
+                       <div class="ms-md-auto d-flex">
+                        <div class="input-group" style="margin-right: 10px;width:100%;z-index:1">
+                          <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+                          <input id="searchBox" type="text" class="form-control" placeholder="Cari Data">
+                        </div>
+                      </div>                   
+                 </div>     
+                <table id="table" class="table table-striped">
                     <thead>
                         <tr>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
@@ -128,5 +133,7 @@
     </div>
   </div>
 </div>
+
+
 @endsection
 

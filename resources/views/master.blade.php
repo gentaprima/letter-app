@@ -269,7 +269,23 @@
   @yield("content")
   </main>
   
-    
+   <script>
+
+$(document).ready(function() {
+    table = $('#table').DataTable({
+        paging: false,
+        ordering: false,
+        info: false,
+        searching:true,
+        dom: 'lrt'
+    });
+    $('table').removeClass('dataTable')
+    $('table').removeClass('no-footer')
+    $('#searchBox').keyup(function(){
+      table.search($(this).val()).draw() ;
+    })
+  });
+   </script>
    <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
    <script src="{{asset('assets/js/core/bootstrap.min.js')}}"></script>
    <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
