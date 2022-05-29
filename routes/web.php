@@ -39,7 +39,7 @@ Route::group(['middleware' => 'check.login','prefix'=>'/dashboard'], function ()
     Route::get("/surat/hapus/{id}", "LetterController@destroy");
     Route::get("/surat/detail/{id}/{type}", "LetterController@show");
     Route::post("/surat-masuk/disposisi/{id}", "LetterController@disposisi");
-
+    Route::get('/surat/accept/{id}','LetterController@acceptOutLetter');
     Route::post('/arsip','ArsipController@store');
     Route::get('/arsip','ArsipController@index');
 

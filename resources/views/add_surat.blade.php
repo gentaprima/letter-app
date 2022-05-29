@@ -24,19 +24,25 @@
                               </span>
                               <input required type="text" name="no_surat" class="form-control" id="exampleInputno_surat1" required aria-describedby="no_suratHelp" placeholder="Format : R/01/KP.01/VI/2022">
                             </div>
-                          </div>          
+                          </div>           
+                         
+                          
+                          @if(Request::segment(4) == 1)
                           <div class="col-lg-6 pb-4 col-sm-12 col-md-6">
-                            <label for="exampleInputEmail1">No Agenda</label>
+                            <label for="exampleInputEmail1">Kepada</label>
                             <div class="input-group">
                               <span class="input-group-text text-body">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-123" viewBox="0 0 16 16">
-                                    <path d="M2.873 11.297V4.142H1.699L0 5.379v1.137l1.64-1.18h.06v5.961h1.174Zm3.213-5.09v-.063c0-.618.44-1.169 1.196-1.169.676 0 1.174.44 1.174 1.106 0 .624-.42 1.101-.807 1.526L4.99 10.553v.744h4.78v-.99H6.643v-.069L8.41 8.252c.65-.724 1.237-1.332 1.237-2.27C9.646 4.849 8.723 4 7.308 4c-1.573 0-2.36 1.064-2.36 2.15v.057h1.138Zm6.559 1.883h.786c.823 0 1.374.481 1.379 1.179.01.707-.55 1.216-1.421 1.21-.77-.005-1.326-.419-1.379-.953h-1.095c.042 1.053.938 1.918 2.464 1.918 1.478 0 2.642-.839 2.62-2.144-.02-1.143-.922-1.651-1.551-1.714v-.063c.535-.09 1.347-.66 1.326-1.678-.026-1.053-.933-1.855-2.359-1.845-1.5.005-2.317.88-2.348 1.898h1.116c.032-.498.498-.944 1.206-.944.703 0 1.206.435 1.206 1.07.005.64-.504 1.106-1.2 1.106h-.75v.96Z"/>
-                                  </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                                  <path class="color-background" d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
+                                  <path class="color-background" fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"></path>
+                                  <path class="color-background" d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"></path>
+                                </svg>
                               </span>
-                              <input required type="number" name="no_agenda" class="form-control" id="exampleInputno_agenda1" aria-describedby="no_agendaHelp" placeholder="No Agenda">
+                              <input required type="text" name="kepada" class="form-control" id="exampleInputtanggal_surat1" aria-describedby="tanggalSuratHelp" placeholder="Ditujukkan Kepada">
                             </div>
-                          </div>          
-                          <div class="col-lg-3 pb-4 col-sm-12 col-md-6">
+                          </div>     
+                          @endif
+                          <div class="col-lg-6 pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1">Tanggal Terima</label>
                             <div class="input-group">
                               <span class="input-group-text text-body">
@@ -47,7 +53,7 @@
                               <input required type="date" name="tgl_terima" class="form-control" id="exampleInputtanggal_terima1" aria-describedby="tanggal_terimaHelp" placeholder="Tanggal Terima">
                             </div>
                           </div>          
-                          <div class="col-lg-3 pb-4 col-sm-12 col-md-6">
+                          <div class="col-lg-6 pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1">Tanggal Surat</label>
                             <div class="input-group">
                               <span class="input-group-text text-body">
@@ -57,9 +63,10 @@
                               </span>
                               <input required type="date" name="tgl_surat" class="form-control" id="exampleInputtanggal_surat1" aria-describedby="tanggalSuratHelp" placeholder="Tanggal Surat">
                             </div>
-                          </div>         
-                          <div class=" {{Request::segment(4) == 1 ? 'col-lg-6' : 'col-lg-3'}} pb-4 col-sm-12 col-md-6">
-                            <label for="exampleInputEmail1">{{Request::segment(4) == 1 ? 'Kepada' : 'Dari'}}</label>
+                          </div>     
+                          @if(Request::segment(4) == 0) 
+                          <div class="col-lg-3 pb-4 col-sm-12 col-md-6">
+                            <label for="exampleInputEmail1"> Dari</label>
                             <div class="input-group">
                               <select class="form-select" name="id_instansi" aria-label="Default select example">
                                 <option selected="">Pilih Data</option>
@@ -69,7 +76,6 @@
                               </select>
                             </div>
                           </div>  
-                          @if(Request::segment(4) == 0) 
                           <div class="col-lg-3 pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1">Kepada</label>
                             <div class="input-group">

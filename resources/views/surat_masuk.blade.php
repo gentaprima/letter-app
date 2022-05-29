@@ -33,7 +33,7 @@
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No Agenda</th>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Terima</th>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Surat</th>
-                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{Request::segment(3) == 1 ? 'Kepada/Dari' : 'Dari/Kepada' }}</th>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{Request::segment(3) == 1 ? 'Kepada' : 'Dari/Kepada' }}</th>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Perihal</th>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah Lampiran</th>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
@@ -47,7 +47,7 @@
                           <td class="text-xs font-weight-bold mb-0">{{$row->no_agenda}}</td>
                           <td class="text-xs font-weight-bold mb-0">{{$row->tgl_terima}}</td>
                           <td class="text-xs font-weight-bold mb-0">{{$row->tgl_surat}}</td>
-                          <td class="text-xs font-weight-bold mb-0">{{$row->nama_instansi." / ".$row->full_name.' - '.$row->role}}</td>
+                          <td class="text-xs font-weight-bold mb-0">{{Request::segment(3) == 1 ? $row->kepada : $row->nama_instansi." / ".$row->full_name.' - '.$row->role}}</td>
                           <td class="text-xs font-weight-bold mb-0">{{$row->perihal}}</td>
                           <td class="text-xs font-weight-bold mb-0">{{$row->lampiran}}</td>
                           <td class="text-xs font-weight-bold mb-0">
@@ -105,16 +105,6 @@
     </section>
 </div>
 <script>
-//   $('#surat_masuk').DataTable( {
-//     dom: 'Bfrtip',
-//     "searching": false,
-//     paging: false,
-//     info: false,
-//     ordering: false,
-//     buttons: [
-//       'copyHtml5', 'excelHtml5', 'pdfHtml5', 'csvHtml5'
-//     ]
-// } );
 </script>
 @endsection
 

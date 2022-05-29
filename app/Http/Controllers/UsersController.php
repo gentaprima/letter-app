@@ -44,9 +44,9 @@ class UsersController extends Controller
             'password.confirmed'       => "Password dan Konfirmasi password harus sama",
         ]);
         if($validate->fails()){
-            return $validate->errors()->first();
-            Session::flash('message', $validate->errors()->first()); 
-            Session::flash('icon', 'error'); 
+            $request->session()->flash('icon', 'warning');
+            $request->session()->flash('title', 'Warning');
+            $request->session()->flash('message', $validate->errors()->first());
             return redirect()->back()
                     ->withInput($request->input())
                     ->withErrors($validate);
@@ -55,8 +55,9 @@ class UsersController extends Controller
         $checkEmail = ModelUsers::where('email',$request->email)->first();
 
         if($checkEmail != null){
-            Session::flash('message', 'Maaf, Email sudah digunakan.'); 
-            Session::flash('icon', 'error'); 
+            $request->session()->flash('icon', 'warning');
+            $request->session()->flash('title', 'Warning');
+            $request->session()->flash('message', "Email Sudah Digunakan");
             return redirect()->back()
                     ->withInput($request->input())
                     ->withErrors($validate);
@@ -72,8 +73,9 @@ class UsersController extends Controller
             'role' => $request->role,
         ]);
         $users->save();
-        Session::flash('message', 'Pengguna baru berhasil ditambahkan.'); 
-        Session::flash('icon', 'success'); 
+        $request->session()->flash('icon', 'success');
+            $request->session()->flash('title', 'Success');
+            $request->session()->flash('message', "Berhasil Menambahkan Pengguna");
         return redirect()->back();
     }
 
@@ -95,9 +97,9 @@ class UsersController extends Controller
         ]);
 
         if($validate->fails()){
-            return $validate->errors()->first();
-            Session::flash('message', $validate->errors()->first()); 
-            Session::flash('icon', 'error'); 
+            $request->session()->flash('icon', 'warning');
+            $request->session()->flash('title', 'Warning');
+            $request->session()->flash('message', $validate->errors()->first());
             return redirect()->back()
                     ->withInput($request->input())
                     ->withErrors($validate);
@@ -105,9 +107,10 @@ class UsersController extends Controller
 
         $users = ModelUsers::find($id);
         if($request->password != null){
-            if($request->password != $request->confirmPassword){
-                Session::flash('message', 'Password dan Konfirmasi password harus sama.'); 
-                Session::flash('icon', 'error'); 
+            if($request->password != $request->confirmPassword){ 
+                $request->session()->flash('icon', 'warning');
+                $request->session()->flash('title', 'Warning');
+                $request->session()->flash('message', "Password dan Konfirmasi password harus sama.");
                 return redirect()->back();
             }
             $users->password = Hash::make($request->password);
@@ -119,16 +122,18 @@ class UsersController extends Controller
         $users->gender = $request->gender;
         $users->date_birth = $request->birthDate;
         $users->save();
-        Session::flash('message', 'Data Pengguna berhasil diperbarui.'); 
-        Session::flash('icon', 'success'); 
+        $request->session()->flash('icon', 'success');
+        $request->session()->flash('title', 'Success');
+        $request->session()->flash('message', "Data Pengguna Berhasil Diperbaharui.");
         return redirect()->back();
     }
 
     public function destroy($id){
         $users = ModelUsers::find($id);
         $users->delete();
-        Session::flash('message', 'Data Pengguna berhasil dihapus.'); 
-        Session::flash('icon', 'success'); 
+        Session::flash('icon', 'success');
+        Session::flash('title', 'Success');
+        Session::flash('message', "Data Pengguna berhasil dihapus.");
         return redirect()->back();
     }
 

@@ -20,7 +20,7 @@ class LetterController extends Controller
         $data['users'] = ModelUsers::select('id', 'full_name', 'role')->get();
         $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name', 'instansi.nama_instansi')->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
             ->leftJoin('instansi', 'surat.id_instansi', '=', 'instansi.id')->where('type', $type);
-        if(session("users")['role'] !== 0){
+        if(session("users")['role'] !== 0 && session("users")['role'] !== 4){
             $data['letter'] = $data['letter']->where('id_users',session("users")['id']);
         }
         $data['letter'] = $data['letter']->paginate(10);
@@ -109,22 +109,38 @@ class LetterController extends Controller
             '*' => 'required',
         ]);
         if ($validate->fails()) {
-            $request->session()->flash('issuccess', false);
+            $request->session()->flash('icon', 'warning');
+            $request->session()->flash('title', 'warning');
             $request->session()->flash('message', $validate->errors()->first());
         }
         $file =$request->file('foto_lampiran');
         $fileNames = "";
         foreach($file as $f){
             $name = uniqid().".jpg";
-            Storage::disk("local")->put("public/".$name,file_get_contents($f));
+            Storage::disk("uploads")->put($name,file_get_contents($f));
             $fileNames.= $name.",";
         }
         $input = $request->all();
-        $input['id_users'] = isset($input['id_users']) ? $input['id_users'] : session('users')['id'];
+        $input['id_users'] = isset($input['id_users']) ? $input['id_users'] : null;
+        $input['kepada'] = isset($input['kepada']) ? $input['kepada'] : null;
         $input['is_arsip'] = true;
         $input['type'] = $type;
         $input['foto_lampiran'] = substr($fileNames,0,strlen($fileNames) - 1);
         ModelLetter::create($input);
+        $request->session()->flash('icon', 'success');
+        $request->session()->flash('title', 'Success');
+        $request->session()->flash('message', 'Berhasil Menambahkan Surat');
+        return redirect()->back();
+    }
+    
+    public function acceptOutLetter($id){
+        $data = ModelLetter::find($id);
+        $data->update([
+            'is_out_letter_approve'=>1
+        ]);
+        Session::flash('icon', 'success');
+        Session::flash('title', 'Success');
+        Session::flash('message', 'Berhasil Acc Surat Keluar');
         return redirect()->back();
     }
 
@@ -132,8 +148,9 @@ class LetterController extends Controller
     {
         $letter = ModelLetter::find($id);
         $letter->delete();
-        Session::flash('message', 'Data Pengguna berhasil dihapus.');
         Session::flash('icon', 'success');
+        Session::flash('title', 'Success');
+        Session::flash('message', 'Berhasil Menghapus Surat');
         return redirect()->back();
     }
 
@@ -145,6 +162,7 @@ class LetterController extends Controller
         $data['users'] = ModelUsers::select('id', 'full_name', 'role')->get();
         $data['isArsip'] = ArsipModel::where('id_surat',$id)->count() > 0 ? false : true;
         $data['eval'] = EvaluationLetter::where('id_surat',$data['letter']->id)->leftJoin('tbl_users','tindak_lanjut.disposisi','tbl_users.id')->get();
+        $data['isEval'] = EvaluationLetter::where("is_approve",1)->count() > 0 ? true :false;
         foreach ($data['eval'] as $user) {
             if ($user->role == 0) {
                 $user->role = "Admin";
@@ -199,6 +217,8 @@ class LetterController extends Controller
             'evaluasi'=>$request->evaluasi,
             'tindak_lanjut'=>$request->tindak_lanjut,
             'id_surat'=>$data->id,
+            'is_approve'=>$request->approve,
+            'approve_date'=>$request->approve ? Carbon::now() : null
         ]);
         return redirect()->back();
     }

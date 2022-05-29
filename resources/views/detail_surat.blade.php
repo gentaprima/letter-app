@@ -117,6 +117,8 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Evaluasi</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tindak Lanjut</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Approve</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status Approve</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -127,6 +129,8 @@
                                 <td class="text-xs font-weight-bold mb-0">{{$e->evaluasi}}</td>
                                 <td class="text-xs font-weight-bold mb-0">{{$e->tindak_lanjut}}</td>
                                 <td class="text-xs font-weight-bold mb-0">{{$e->tanggal}}</td>
+                                <td class="text-xs font-weight-bold mb-0">{{$e->approve_date ?? '-' }}</td>
+                                <td class="text-xs font-weight-bold mb-0"><span class="{{ $e->is_approve == 1 ? "bg-success" : 'bg-warning' }} pt-1 pb-1 text-white" style="padding-left: 10px;padding-right:10px;border-radius:5px"> {{$e->is_approve == 1 ? "Diteruskan Langsung" : "Belum Ada Konfirmasi"}}</span></td>
                               </tr>
                               @endforeach
                             </tbody>
@@ -139,7 +143,7 @@
                             <div class="col-lg-6  pb-4 col-sm-12 col-md-6">
                                 <label for="exampleInputEmail1">Lampiran {{ $i }}</label>
                                 <div class="input-group">
-                                  <img width="80%" height="60%" src="{{asset('storage/'.$foto)}}" alt="">
+                                  <img width="80%" height="60%" src="{{asset('uploads/'.$foto)}}" alt="">
                                 </div>
                               </div>   
                             <?php $i++ ?>       
@@ -150,11 +154,19 @@
                             <input type="hidden" name="type" value="0">
                             @csrf
                             <div class="col-lg-6 col-md-6 col-sm-12">
-                                @if($isArsip)
-                                <button onclick="showArsip()" class="btn btn-success">Arsipkan</button>
-                                @endif
+                              @if($isArsip && $isEval && session('users')->role == 4 || session('users')->role == 0)
+                              <button onclick="showArsip()" class="btn btn-success">Arsipkan</button>
+                              @endif
+                              @if(session('users')->role == 4)
+                                @if(Request::segment(5) == 0)
                                 <button onclick="add()" class="btn btn-primary">Disposisi</button>
+                                @endif
+                                
+                                @if(Request::segment(5) ==1 && $letter->is_out_letter_approve == 0)
+                                 <a href="/dashboard/surat/accept/{{$letter->id}}" class="btn btn-primary">Approve Surat</a>
+                                @endif
                                 <a href="/dashboard/surat/{{Request::segment(5)}}" class="btn btn-secondary">Kembali</a>
+                              @endif
                             </div>
                           </div>
                       </div>
@@ -208,7 +220,14 @@
                     <textarea rows="5" style="padding-left:10px !important" type="text" name="tindak_lanjut" class="form-control" id="exampleInputtindak_lanjut1" aria-describedby="tindak_lanjutHelp" placeholder="Tindak Lanjut"></textarea>
                 </div>
                 @csrf
-              
+                <label for="exampleInputEmail1">Approval</label>
+                <div class="input-group">
+                  <select class="form-select" name="approve" aria-label="Default select example">
+                        <option selected="">Pilih Status Approval</option>
+                          <option value="1">Langsung Diteruskan</option>
+                          <option value="0">Tidak Langsung Diteruskan</option>
+                      </select>
+                </div>
         </div>
           <div class="modal-footer">
             <button type="button" id="close" onclick="closeModal('#addModal')" class="btn btn-secondary" data-dismiss="modal">Close</button>

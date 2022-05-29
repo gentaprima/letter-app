@@ -41,7 +41,6 @@
                               <a href="#" onclick="edit({{$row->id}})" style="margin-right:10px" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                 Edit
                               </a>                    
-
                               <a href="/dashboard/users/{{ $row->id}} " class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                 Delete
                               </a>                            

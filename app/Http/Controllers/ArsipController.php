@@ -59,10 +59,14 @@ class ArsipController extends Controller
             '*'=>'required'
         ]);
         if($validate->fails()){
-            //error message
+            $request->session()->flash('icon', 'warning');
+            $request->session()->flash('title', 'Warning');
+            $request->session()->flash('message', $validate->errors()->first());        
         }
         ArsipModel::create($request->all());
-
+        $request->session()->flash('icon', 'success');
+        $request->session()->flash('title', 'Success');
+        $request->session()->flash('message', 'Berhasil Menambahkan Arsip');
         return redirect()->back();
     }
 

@@ -100,7 +100,7 @@
             <span class="nav-link-text ms-1">Surat Keluar</span>
           </a>
         </li> 
-        @if(session('users')['role'] == 0)
+        @if(session('users')['role'] == 0 || session('users')['role'] == 4)
         <li class="nav-item">
           <a class="nav-link  {{ Request::is('dashboard/instansi') ? 'active' : '' }}" href="/dashboard/instansi">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -122,7 +122,7 @@
           </a>
         </li>
         @endif
-        @if(session('users')['role'] == 0)
+        @if(session('users')['role'] == 0 || session('users')['role'] == 4)
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Laporan</h6>
         </li>
@@ -151,7 +151,7 @@
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Pengguna</h6>
         </li>
-        @if(session('users')['role'] == 0)
+        @if(session('users')['role'] == 0 || session('users')['role'] == 4)
         <li class="nav-item">
           <a class="nav-link  {{ Request::is('dashboard/data-pengguna') ? 'active' : '' }}" href="/dashboard/data-pengguna">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -261,6 +261,11 @@
       </div>
     </nav>
     <!-- End Navbar -->
+    @if(Session::has('message'))
+        <p hidden="true" id="message">{{ Session::get('message') }}</p>
+        <p hidden="true" id="icon">{{ Session::get('icon') }}</p>
+        <p hidden="true" id="title">{{ Session::get('title') }}</p>
+    @endif
   @yield("content")
   </main>
   
@@ -270,6 +275,19 @@
    <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
    <script src="{{ asset('assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
    <script src="{{ asset('assets/js/plugins/chartjs.min.js') }}"></script>
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   <script>
+    let icon = document.getElementById('icon');
+    let title = document.getElementById('title');
+    if (icon != null) {
+      let message = document.getElementById('message');
+      swal({
+        title: title.innerHTML,
+        text: message.innerHTML,
+        icon: icon.innerHTML,
+      });
+    }
+  </script>
    <script>
      var ctx = document.getElementById("chart-bars").getContext("2d");
      new Chart(ctx, {
