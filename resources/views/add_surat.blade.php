@@ -42,6 +42,7 @@
                             </div>
                           </div>     
                           @endif
+                          @if(Request::segment(4) == 0)
                           <div class="col-lg-6 pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1">Tanggal Terima</label>
                             <div class="input-group">
@@ -63,7 +64,8 @@
                               </span>
                               <input required type="date" name="tgl_surat" class="form-control" id="exampleInputtanggal_surat1" aria-describedby="tanggalSuratHelp" placeholder="Tanggal Surat">
                             </div>
-                          </div>     
+                          </div>  
+                          @endif   
                           @if(Request::segment(4) == 0) 
                           <div class="col-lg-3 pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1"> Dari</label>
