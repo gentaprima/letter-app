@@ -19,10 +19,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'LoginController@index');
 Route::post('/', 'LoginController@checkLogin');
 
-Route::group(['middleware' => 'check.login','prefix'=>'/dashboard'], function () {
+Route::group(['middleware' => 'check.login', 'prefix' => '/dashboard'], function () {
     Route::get('/beranda', 'DashboardController@index');
     Route::get('/', 'DashboardController@index');
-    
     //Route users
     Route::get('/data-pengguna', 'UsersController@index');
     Route::get('/profile', 'UsersController@profile');
@@ -34,14 +33,14 @@ Route::group(['middleware' => 'check.login','prefix'=>'/dashboard'], function ()
     //Route letter
     Route::get("/surat/tambah/{type}", "LetterController@add");
     Route::post("/surat/tambah/{type}", "LetterController@store");
-    
+
     Route::get("/surat/{type}", "LetterController@index");
     Route::get("/surat/hapus/{id}", "LetterController@destroy");
     Route::get("/surat/detail/{id}/{type}", "LetterController@show");
     Route::post("/surat-masuk/disposisi/{id}", "LetterController@disposisi");
-    Route::get('/surat/accept/{id}','LetterController@acceptOutLetter');
-    Route::post('/arsip','ArsipController@store');
-    Route::get('/arsip','ArsipController@index');
+    Route::get('/surat/accept/{id}', 'LetterController@acceptOutLetter');
+    Route::post('/arsip', 'ArsipController@store');
+    Route::get('/arsip', 'ArsipController@index');
 
     //Route Instance
     Route::get("/instansi", "InstansiController@index");
@@ -49,23 +48,10 @@ Route::group(['middleware' => 'check.login','prefix'=>'/dashboard'], function ()
     Route::get("/instansi/{id}", "InstansiController@destroy");
     Route::post("/instansi/{id}", "InstansiController@update");
 
+
+    //route report
+    Route::get("/report/{type}", "LetterController@report");
 });
 
-
-Route::get('storage/{filename}', function ($filename)
-    {
-    $path = storage_path('public/' . $filename);
-
-    if (!File::exists($path)) {
-        abort(404);
-    }
-
-    $file = File::get($path);
-    $type = File::mimeType($path);
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-    
-    return $response;
-});
 // Route::middleware(['auth','checkLogin'])->group(function(){
 // });

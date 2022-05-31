@@ -10,6 +10,11 @@
         <div class="container-fluid">
             <div class="card p-5 rounded mb-3">
               <div class="d-flex align-items-center">
+                <div class="input-group">
+                  <button id="pdf" class="btn btn-outline-primary size-btn">PDF</button>
+                  <button id="excel" class="btn btn-outline-primary size-btn">EXCEL</button>
+                  <button id="print" class="btn btn-outline-primary size-btn">PRINT</button>
+              </div>
                 <div class="ms-md-auto d-flex">
                   <div class="input-group" style="margin-right: 10px;width:100%;z-index:1">
                     <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
@@ -43,7 +48,7 @@
                           <td class="text-xs font-weight-bold mb-0">{{$row->no_agenda}}</td>
                           <td class="text-xs font-weight-bold mb-0">{{$row->tgl_surat}}</td>
                           <td class="text-xs font-weight-bold mb-0">{{$row->tanggal_arsip}}</td>
-                          <td class="text-xs font-weight-bold mb-0">{{$row->nama_instansi." / ".$row->full_name.' - '.$row->role}}</td>
+                          <td class="text-xs font-weight-bold mb-0">{{$row->type == 1 ? $row->kepada : $row->nama_instansi." - ".$row->full_name.' - '.$row->role}}</td>
                           <td class="text-xs font-weight-bold mb-0">{{$row->perihal}}</td>
                           <td class="text-xs font-weight-bold mb-0">{{$row->keterangan}}</td>
                           <td class="text-xs font-weight-bold mb-0">{{$row->lampiran}}</td>

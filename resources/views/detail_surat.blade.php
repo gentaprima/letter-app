@@ -1,8 +1,8 @@
 @extends('master')
 
 @section('title-link','Beranda')
-@section('sub-title-link','Detail Surat Masuk')
-@section('title','Detail Surat Masuk')
+@section('sub-title-link',Request::segment(5) == 1 ? 'Detail Surat Keluar' : "Detail Surat Masuk" )
+@section('title',Request::segment(5) == 1 ? 'Detail Surat Keluar' : "Detail Surat Masuk")
 
 @section('content')
 <!-- Content Wrapper. Contains page content -->
@@ -47,7 +47,7 @@
                               <input disabled value="{{$letter->tgl_terima}}" required type="date" name="tgl_terima" class="form-control" id="exampleInputtanggal_terima1" aria-describedby="tanggal_terimaHelp" placeholder="Tanggal Terima">
                             </div>
                           </div>          
-                          <div class="col-lg-3 pb-4 col-sm-12 col-md-6">
+                          <div class="col-lg-6 pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1">Tanggal Surat</label>
                             <div class="input-group">
                               <span style="z-index: 1" class="input-group-text text-body">
@@ -154,19 +154,20 @@
                             <input type="hidden" name="type" value="0">
                             @csrf
                             <div class="col-lg-6 col-md-6 col-sm-12">
-                              @if($isArsip && $isEval && session('users')->role == 4 || session('users')->role == 0)
+                              @if($isArsip)
+                              @if($letter->is_out_letter_approve == 1  || $isArsip && $isEval && session('users')->role == 4 && session('users')->role == 0)
                               <button onclick="showArsip()" class="btn btn-success">Arsipkan</button>
                               @endif
-                              @if(session('users')->role == 4)
+                              @if(session('users')->role == 4 )
                                 @if(Request::segment(5) == 0)
                                 <button onclick="add()" class="btn btn-primary">Disposisi</button>
                                 @endif
-                                
                                 @if(Request::segment(5) ==1 && $letter->is_out_letter_approve == 0)
                                  <a href="/dashboard/surat/accept/{{$letter->id}}" class="btn btn-primary">Approve Surat</a>
                                 @endif
+                                @endif
+                                @endif
                                 <a href="/dashboard/surat/{{Request::segment(5)}}" class="btn btn-secondary">Kembali</a>
-                              @endif
                             </div>
                           </div>
                       </div>

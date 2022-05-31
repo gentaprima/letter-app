@@ -41,9 +41,13 @@
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-white" id="sidenav-main" style="z-index: 1">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href="/dashboard" >
-        <span class="ms-4 font-weight-bold">PENGARSIPAN SURAT</span>
-      </a>
+      {{-- <a class="navbar-brand m-0" href="/dashboard" >
+        <span class="ms-4 font-weight-bold"><img src="{{asset('logo1.png')}}" alt="">PENGARSIPAN SURAT</span>
+      </a> --}}
+      <a class="navbar-brand m-0" href="/dashboard" target="_blank">
+        <img src="{{asset('logo1.png')}}" class="navbar-brand-img h-100" alt="main_logo">
+        <span class="ms-2 mb-5 font-weight-bold">Manajemen Surat</span>
+        </a>
     </div>
     <hr class="horizontal dark mt-0">
     <div class="collapse navbar-collapse  w-auto h-auto" id="sidenav-collapse-main">
@@ -127,7 +131,7 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Laporan</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="../pages/profile.html">
+          <a class="nav-link {{ Request::is('dashboard/report/0') ? 'active' : '' }} " href="/dashboard/report/0">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16">
                 <path class="color-background" d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zm-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0z"/>
@@ -138,7 +142,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="../pages/profile.html">
+          <a class="nav-link {{ Request::is('dashboard/report/1') ? 'active' : '' }} " href="/dashboard/report/1">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up-fill" viewBox="0 0 16 16">
                 <path class="color-background" d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM6.354 9.854a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 8.707V12.5a.5.5 0 0 1-1 0V8.707L6.354 9.854z"/>
@@ -277,12 +281,23 @@ $(document).ready(function() {
         ordering: false,
         info: false,
         searching:true,
-        dom: 'lrt'
+        dom: 'lrt',
+        "buttons": [ 'excelHtml5', 'print', 'pdfHtml5' ]   
+
     });
     $('table').removeClass('dataTable')
     $('table').removeClass('no-footer')
     $('#searchBox').keyup(function(){
       table.search($(this).val()).draw() ;
+    });
+    $('#pdf').click(function(){
+      table.buttons( 0, 2 ).trigger()
+    });
+    $('#excel').click(function(){
+      table.buttons( 0, 0 ).trigger()
+    })
+    $('#print').click(function(){
+      table.buttons( 0, 1 ).trigger()
     })
   });
    </script>
