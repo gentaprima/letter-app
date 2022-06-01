@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\ModelUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
+
     public function index()
     {
+        if(Session::has('users')){
+            return redirect("/dashboard");
+        }
         return view('login');
     }
 
