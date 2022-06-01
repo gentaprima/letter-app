@@ -25,7 +25,7 @@
                               <input disabled value="{{$letter->no_surat}}" required type="text" name="no_surat" class="form-control" id="exampleInputno_surat1" required aria-describedby="no_suratHelp" placeholder="Format : R/01/KP.01/VI/2022">
                             </div>
                           </div>          
-                          <div class="col-lg-6 pb-4 col-sm-12 col-md-6">
+                          {{-- <div class="col-lg-6 pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1">No Agenda</label>
                             <div class="input-group">
                               <span style="z-index: 1" class="input-group-text text-body">
@@ -35,8 +35,9 @@
                               </span>
                               <input disabled value="{{$letter->no_agenda}}" required type="number" name="no_agenda" class="form-control" id="exampleInputno_agenda1" aria-describedby="no_agendaHelp" placeholder="No Agenda">
                             </div>
-                          </div>          
-                          <div class="col-lg-3 pb-4 col-sm-12 col-md-6">
+                          </div>           --}}
+                          @if(Request::segment(5) == 0)
+                          <div class="col-lg-6 pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1">Tanggal Terima</label>
                             <div class="input-group">
                               <span style="z-index: 1" class="input-group-text text-body">
@@ -47,6 +48,7 @@
                               <input disabled value="{{$letter->tgl_terima}}" required type="date" name="tgl_terima" class="form-control" id="exampleInputtanggal_terima1" aria-describedby="tanggal_terimaHelp" placeholder="Tanggal Terima">
                             </div>
                           </div>          
+                          @endif
                           <div class="col-lg-6 pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1">Tanggal Surat</label>
                             <div class="input-group">
@@ -58,6 +60,7 @@
                               <input disabled value="{{$letter->tgl_surat}}" required type="date" name="tgl_surat" class="form-control" id="exampleInputtanggal_surat1" aria-describedby="tanggalSuratHelp" placeholder="Tanggal Surat">
                             </div>
                           </div>          
+                          @if(Request::segment(5) == 0) 
                           <div class="{{Request::segment(5) == 1 ? 'col-lg-6' : 'col-lg-3'}} pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1">{{Request::segment(5) == 1 ? 'Kepada' : 'Dari'}}</label>
                             <div class="input-group">
@@ -69,6 +72,21 @@
                               </select>
                             </div>
                           </div>  
+                          @else
+                          <div class="col-lg-12  pb-4 col-sm-12 col-md-6">
+                            <label for="exampleInputEmail1">Kepada</label>
+                            <div class="input-group">
+                              <span style="z-index: 1" class="input-group-text text-body">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-app-indicator" viewBox="0 0 16 16">
+                                    <path d="M5.5 2A3.5 3.5 0 0 0 2 5.5v5A3.5 3.5 0 0 0 5.5 14h5a3.5 3.5 0 0 0 3.5-3.5V8a.5.5 0 0 1 1 0v2.5a4.5 4.5 0 0 1-4.5 4.5h-5A4.5 4.5 0 0 1 1 10.5v-5A4.5 4.5 0 0 1 5.5 1H8a.5.5 0 0 1 0 1H5.5z"/>
+                                    <path d="M16 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                  </svg>
+                              </span>
+                              <input disabled value="{{$letter->kepada}}" required type="text" name="no_surat" class="form-control" id="exampleInputno_surat1" required aria-describedby="no_suratHelp" placeholder="Format : R/01/KP.01/VI/2022">
+                            </div>
+                          </div> 
+                          @endif
+                          
                           @if(Request::segment(5) == 0) 
                           <div class="col-lg-3 pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1">Kepada</label>
