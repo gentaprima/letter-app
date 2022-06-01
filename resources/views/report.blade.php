@@ -28,9 +28,7 @@
                       <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No Surat</th>
-                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No Agenda</th>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Surat</th>
-                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Arsip</th>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Dari/Kepada</th>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Perihal</th>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah Lampiran</th>
@@ -44,9 +42,7 @@
                       <tr>
                           <td class="text-xs font-weight-bold mb-0">{{$row->no}}.</td>
                           <td class="text-xs font-weight-bold mb-0">{{$row->no_surat}}</td>
-                          <td class="text-xs font-weight-bold mb-0">{{$row->no_agenda}}</td>
                           <td class="text-xs font-weight-bold mb-0">{{$row->tgl_surat}}</td>
-                          <td class="text-xs font-weight-bold mb-0">{{$row->tanggal_arsip}}</td>
                           <td class="text-xs font-weight-bold mb-0">{{$row->type == 1 ? $row->kepada : $row->nama_instansi." - ".$row->full_name.' - '.$row->role}}</td>
                           <td class="text-xs font-weight-bold mb-0">{{$row->perihal}}</td>
                           <td class="text-xs font-weight-bold mb-0">{{$row->lampiran}}</td>

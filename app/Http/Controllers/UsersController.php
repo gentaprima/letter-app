@@ -5,25 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\ModelUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $dataPengguna = ModelUsers::paginate(10);
         $data = [
             'dataPengguna' => $dataPengguna
         ];
-        return view('pengguna',$data);
+        return view('pengguna', $data);
     }
 
-    public function profile(){
+    public function profile()
+    {
         return view('profile');
     }
 
-    public function store(Request $request){
-        $validate = Validator::make($request->all(),[
+    public function store(Request $request)
+    {
+        $validate = Validator::make($request->all(), [
             'fullName'    => 'required',
             'email'    => 'required|email',
             'phoneNumber'    => 'required|numeric|min:11',
@@ -31,9 +35,9 @@ class UsersController extends Controller
             'confirmPassword'    => 'required',
             'gender'           => 'required',
             'birthDate'           => 'required|date',
-            'role'=>'required|in:0,1,2,3,4'
+            'role' => 'required|in:0,1,2,3,4'
 
-        ],[
+        ], [
             'fullName.required' => "Nama Lengkap harus dilengkapi",
             'email.required' => "Email harus dilengkapi",
             'password.required' => "Password harus dilengkapi",
@@ -43,24 +47,24 @@ class UsersController extends Controller
             'phoneNumber.numeric'       => "Nomor telepon harus menggunakan angka",
             'password.confirmed'       => "Password dan Konfirmasi password harus sama",
         ]);
-        if($validate->fails()){
+        if ($validate->fails()) {
             $request->session()->flash('icon', 'warning');
             $request->session()->flash('title', 'Warning');
             $request->session()->flash('message', $validate->errors()->first());
             return redirect()->back()
-                    ->withInput($request->input())
-                    ->withErrors($validate);
+                ->withInput($request->input())
+                ->withErrors($validate);
         }
 
-        $checkEmail = ModelUsers::where('email',$request->email)->first();
+        $checkEmail = ModelUsers::where('email', $request->email)->first();
 
-        if($checkEmail != null){
+        if ($checkEmail != null) {
             $request->session()->flash('icon', 'warning');
             $request->session()->flash('title', 'Warning');
             $request->session()->flash('message', "Email Sudah Digunakan");
             return redirect()->back()
-                    ->withInput($request->input())
-                    ->withErrors($validate);
+                ->withInput($request->input())
+                ->withErrors($validate);
         }
 
         $users = ModelUsers::create([
@@ -74,21 +78,22 @@ class UsersController extends Controller
         ]);
         $users->save();
         $request->session()->flash('icon', 'success');
-            $request->session()->flash('title', 'Success');
-            $request->session()->flash('message', "Berhasil Menambahkan Pengguna");
+        $request->session()->flash('title', 'Success');
+        $request->session()->flash('message', "Berhasil Menambahkan Pengguna");
         return redirect()->back();
     }
 
-    public function update(Request $request,$id){
-        $validate = Validator::make($request->all(),[
+    public function update(Request $request, $id)
+    {
+        $validate = Validator::make($request->all(), [
             'fullName'    => 'required',
             'email'    => 'required|email',
             'phoneNumber'    => 'required|numeric|min:11',
             'gender'           => 'required',
             'birthDate'           => 'required|date',
-            'role'=>'required'
+            'role' => 'required'
 
-        ],[
+        ], [
             'fullName.required' => "Nama Lengkap harus dilengkapi",
             'email.required' => "Email harus dilengkapi",
             'phoneNumber.required'       => "Nomor telepon harus dilengkapi",
@@ -96,25 +101,24 @@ class UsersController extends Controller
             'phoneNumber.numeric'       => "Nomor telepon harus menggunakan angka",
         ]);
 
-        if($validate->fails()){
+        if ($validate->fails()) {
             $request->session()->flash('icon', 'warning');
             $request->session()->flash('title', 'Warning');
             $request->session()->flash('message', $validate->errors()->first());
             return redirect()->back()
-                    ->withInput($request->input())
-                    ->withErrors($validate);
+                ->withInput($request->input())
+                ->withErrors($validate);
         }
 
         $users = ModelUsers::find($id);
-        if($request->password != null){
-            if($request->password != $request->confirmPassword){ 
+        if ($request->password != null) {
+            if ($request->password != $request->confirmPassword) {
                 $request->session()->flash('icon', 'warning');
                 $request->session()->flash('title', 'Warning');
                 $request->session()->flash('message', "Password dan Konfirmasi password harus sama.");
                 return redirect()->back();
             }
             $users->password = Hash::make($request->password);
-            
         }
 
         $users->full_name = $request->fullName;
@@ -128,7 +132,8 @@ class UsersController extends Controller
         return redirect()->back();
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $users = ModelUsers::find($id);
         $users->delete();
         Session::flash('icon', 'success');
@@ -137,8 +142,9 @@ class UsersController extends Controller
         return redirect()->back();
     }
 
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         $request->session()->forget('users');
-        return redirect('/');
+        
     }
 }
