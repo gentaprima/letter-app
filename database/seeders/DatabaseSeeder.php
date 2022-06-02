@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
         );
         ModelInstance::create([
             'id'=>0,
-            'nama_instansi'=>'SMK Teratai Putih Global 2 Bekasi',
+            'nama_instansi'=>'PT PTAN',
             'alamat_instansi'=>'Jl. Rajawali V Jl. Anggrek Raya No.29, RT.005/RW.023, Kayuringin Jaya, Kec. Bekasi Sel., Kota Bks, Jawa Barat 17144'
         ]);
     }

@@ -123,7 +123,7 @@ class LetterController extends Controller
         $input = $request->all();
         $input['id_users'] = isset($input['id_users']) ? $input['id_users'] : null;
         $input['kepada'] = isset($input['kepada']) ? $input['kepada'] : null;
-        $input['is_arsip'] = true;
+        $input['is_arsip'] = false;
         $input['type'] = $type;
         $input['foto_lampiran'] = substr($fileNames, 0, strlen($fileNames) - 1);
         ModelLetter::create($input);
@@ -162,9 +162,9 @@ class LetterController extends Controller
         $data['letter']->foto_lampiran = explode(',', $data['letter']->foto_lampiran);
         $data['instance'] = ModelInstance::select('id', 'nama_instansi')->get();
         $data['users'] = ModelUsers::select('id', 'full_name', 'role')->get();
-        $data['isArsip'] = ArsipModel::where('id_surat', $id)->count() > 0 ? false : true;
+        $data['isArsip'] = ArsipModel::where('id_surat', $id)->get()->count();
         $data['eval'] = EvaluationLetter::where('id_surat', $data['letter']->id)->leftJoin('tbl_users', 'tindak_lanjut.disposisi', 'tbl_users.id')->get();
-        $data['isEval'] = EvaluationLetter::where("is_approve", 1)->count() > 0 ? true : false;
+        $data['isEval'] =EvaluationLetter::where('is_approve',1)->where('id_surat', $data['letter']->id)->get()->count();
         foreach ($data['eval'] as $user) {
             if ($user->role == 0) {
                 $user->role = "Admin";

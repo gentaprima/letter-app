@@ -8,10 +8,20 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index(){
-        $data['letterIn'] = ModelLetter::where("type",0)->where('id_users',session("users")->id)->count();
-        $data['letterOut'] = ModelLetter::where("type",1)->where('id_users',session("users")->id)->count();
+    public function index()
+    {
+        $data['letterOut'] = ModelLetter::where('type', '1');
+        if (session("users")['role'] !== 0 && session("users")['role'] !== 4) {
+            $data['letterOut'] = $data['letter']->where('id_users', session("users")['id']);
+        }
+        $data['letterIn'] = ModelLetter::where('type', '0');
+        if (session("users")['role'] !== 0 && session("users")['role'] !== 4) {
+            $data['letterIn'] = $data['letter']->where('id_users', session("users")['id']);
+        }
+    
+        $data['letterOut'] = $data['letterOut']->count();
+        $data['letterIn'] = $data['letterIn']->count();
         $data['instance'] = ModelInstance::count();
-        return view("dashboard",$data);
+        return view("dashboard", $data);
     }
 }

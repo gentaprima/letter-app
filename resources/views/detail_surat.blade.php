@@ -172,20 +172,18 @@
                             <input type="hidden" name="type" value="0">
                             @csrf
                             <div class="col-lg-6 col-md-6 col-sm-12">
-                              @if($isArsip)
-                              @if($letter->is_out_letter_approve == 1  || $isArsip && $isEval && session('users')->role == 4 && session('users')->role == 0)
-                              <button onclick="showArsip()" class="btn btn-success">Arsipkan</button>
-                              @endif
-                              @if(session('users')->role == 4 )
-                                @if(Request::segment(5) == 0)
-                                <button onclick="add()" class="btn btn-primary">Disposisi</button>
+                                {{-- @if(Request::segment(5) == 0 && $isEval && $letter->isArsip <=0)
+                                  @endif --}}
+                                @if((session("users")->role == 4 &&Request::segment(5) == 0 && $isEval > 0 && $isArsip <= 0) ||($letter->is_out_letter_approve  !== null && $letter->is_out_letter_approve&& $isArsip <= 0) )
+                                  <button onclick="showArsip()" class="btn btn-success">Arsipkan</button>
                                 @endif
-                                @if(Request::segment(5) ==1 && $letter->is_out_letter_approve == 0)
-                                 <a href="/dashboard/surat/accept/{{$letter->id}}" class="btn btn-primary">Approve Surat</a>
+                                @if(session("users")->role == 4 && Request::segment(5) == 0 && $isArsip <= 0)
+                                  <button onclick="add()" class="btn btn-primary">Disposisi</button>
                                 @endif
-                                @endif
-                                @endif
-                                <a href="/dashboard/surat/{{Request::segment(5)}}" class="btn btn-secondary">Kembali</a>
+                                 @if(Request::segment(5) == 1 && session("users")->role == 4 && !$letter->is_out_letter_approve )
+                                  <a href="/dashboard/surat/accept/{{$letter->id}}" class="btn btn-primary">Approve Surat</a>
+                                 @endif 
+                              <a href="/dashboard/surat/{{Request::segment(5)}}" class="btn btn-secondary">Kembali</a>
                             </div>
                           </div>
                       </div>
