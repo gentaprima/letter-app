@@ -12,11 +12,11 @@ class DashboardController extends Controller
     {
         $data['letterOut'] = ModelLetter::where('type', '1');
         if (session("users")['role'] !== 0 && session("users")['role'] !== 4) {
-            $data['letterOut'] = $data['letter']->where('id_users', session("users")['id']);
+            $data['letterOut'] = $data['letterOut']->where('id_users', session("users")['id']);
         }
         $data['letterIn'] = ModelLetter::where('type', '0');
         if (session("users")['role'] !== 0 && session("users")['role'] !== 4) {
-            $data['letterIn'] = $data['letter']->where('id_users', session("users")['id']);
+            $data['letterIn'] = $data['letterIn']->where('id_users', session("users")['id']);
         }
     
         $data['letterOut'] = $data['letterOut']->count();
