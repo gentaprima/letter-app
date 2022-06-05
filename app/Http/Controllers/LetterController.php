@@ -9,6 +9,7 @@ use App\Models\ModelLetter;
 use App\Models\ModelUsers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -226,11 +227,28 @@ class LetterController extends Controller
         return redirect()->back();
     }
 
-    public function report($type)
+    public function report(Request $request,$type)
     {
+        $startDate = $request->startDate;
+        $endDate = $request->endDate;
+
         $data['users'] = ModelUsers::select('id', 'full_name', 'role')->get();
-        $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name', 'instansi.nama_instansi')->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
-            ->leftJoin('instansi', 'surat.id_instansi', '=', 'instansi.id')->where('type', $type)->get();
+        if($startDate != null && $endDate != null){
+            
+            $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name', 'instansi.nama_instansi')
+                                        ->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
+                                        ->leftJoin('instansi', 'surat.id_instansi', '=', 'instansi.id')
+                                        ->where('type', $type)
+                                        ->whereBetween('tgl_surat',[$startDate,$endDate])
+                                        ->get();
+            $data['filter']  = true;
+        }else{
+            $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name', 'instansi.nama_instansi')
+                                        ->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
+                                        ->leftJoin('instansi', 'surat.id_instansi', '=', 'instansi.id')
+                                        ->where('type', $type)->get();
+            $data['filter']  = false;
+        }
         $i = 1;
         if ($type == 0) {
             $data['title'] = "Report Surat Masuk";

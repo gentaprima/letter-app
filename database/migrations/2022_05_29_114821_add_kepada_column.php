@@ -13,9 +13,9 @@ class AddKepadaColumn extends Migration
      */
     public function up()
     {
-        Schema::table("tindak_lanjut",function($table){
-            $table->dropColumn("kepada");
-        });
+        // Schema::table("tindak_lanjut",function($table){
+        //     $table->dropColumn("kepada");
+        // });
 
         Schema::table("surat",function($table){
             $table->string("kepada")->nullable();
