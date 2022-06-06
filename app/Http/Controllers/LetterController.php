@@ -9,7 +9,6 @@ use App\Models\ModelLetter;
 use App\Models\ModelUsers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;

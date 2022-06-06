@@ -109,6 +109,9 @@
     $('#modalFilter').modal('show')
     // $('#form-modal').attr('action','/dashboard/users')
   }
+  $('#close').click(function(){
+    $('#modalFilter').modal('hide')
+  })
 </script>
 
 @endsection

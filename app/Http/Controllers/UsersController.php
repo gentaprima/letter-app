@@ -125,6 +125,7 @@ class UsersController extends Controller
         $users->phone_number = $request->phoneNumber;
         $users->gender = $request->gender;
         $users->date_birth = $request->birthDate;
+        $users->email = $request->email;
         $users->save();
         $request->session()->flash('icon', 'success');
         $request->session()->flash('title', 'Success');
