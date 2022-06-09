@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\ModelInstance;
 use App\Models\ModelLetter;
-use Illuminate\Http\Request;
-
 class DashboardController extends Controller
 {
     public function index()
@@ -18,7 +16,6 @@ class DashboardController extends Controller
         if (session("users")['role'] !== 0 && session("users")['role'] !== 4) {
             $data['letterIn'] = $data['letterIn']->where('id_users', session("users")['id']);
         }
-    
         $data['letterOut'] = $data['letterOut']->count();
         $data['letterIn'] = $data['letterIn']->count();
         $data['instance'] = ModelInstance::count();

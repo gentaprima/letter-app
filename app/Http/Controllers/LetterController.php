@@ -114,6 +114,7 @@ class LetterController extends Controller
             $request->session()->flash('message', $validate->errors()->first());
         }
         $file = $request->file('foto_lampiran');
+    
         $fileNames = "";
         foreach ($file as $f) {
             $name = uniqid() . ".jpg";

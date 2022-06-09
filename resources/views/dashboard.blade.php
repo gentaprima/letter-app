@@ -73,9 +73,9 @@
                     </div>
                   </div>
             </div>
-            <div class="alert alert-primary mt-5 text-white" role="alert">
+            {{-- <div class="alert alert-primary mt-5 text-white" role="alert">
               Ada Surat Masuk Baru Yang Didisposisikan Kepada mu. <a class="text-success text-bold" href="">Lihat Disini</a>
-            </div>
+            </div> --}}
         </div>
     </section>
 </div>
