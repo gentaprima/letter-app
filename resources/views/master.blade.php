@@ -113,6 +113,7 @@
                         <span class="nav-link-text ms-1">Surat Masuk</span>
                     </a>
                 </li>
+                @if(session('users')['role'] == 0 || session('users')['role'] == 4 )
                 <li class="nav-item">
                     <a class="nav-link  {{ Request::is('dashboard/surat/1') || Request::is('dashboard/surat/tambah/1') ? 'active' : '' }}"
                         href="/dashboard/surat/1">
@@ -129,6 +130,7 @@
                         <span class="nav-link-text ms-1">Surat Keluar</span>
                     </a>
                 </li>
+                @endif
                 @if (session('users')['role'] == 0 || session('users')['role'] == 4)
                     <li class="nav-item">
                         <a class="nav-link  {{ Request::is('dashboard/instansi') ? 'active' : '' }}"

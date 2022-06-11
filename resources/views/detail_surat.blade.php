@@ -174,7 +174,7 @@
                             <div class="col-lg-6 col-md-6 col-sm-12">
                                 {{-- @if(Request::segment(5) == 0 && $isEval && $letter->isArsip <=0)
                                   @endif --}}
-                                @if((session("users")->role == 0 &&Request::segment(5) == 0 && $isEval > 0 && $isArsip <= 0) ||($letter->is_out_letter_approve  !== null && $letter->is_out_letter_approve&& $isArsip <= 0) )
+                                @if((session("users")->role == 0 && Request::segment(5) == 0 && $isEval > 0 && $isArsip <= 0) || (session("users")->role == 0 && $letter->is_out_letter_approve  !== null && $letter->is_out_letter_approve&& $isArsip <= 0) )
                                   <button onclick="showArsip()" class="btn btn-success">Arsipkan</button>
                                 @endif
                                 @if(session("users")->role == 4 && Request::segment(5) == 0 && $isArsip <= 0)
