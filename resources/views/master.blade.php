@@ -50,7 +50,7 @@
       </a> --}}
             <a class="navbar-brand m-0" href="/dashboard" target="_blank">
                 <img src="{{ asset('logo1.png') }}" class="navbar-brand-img h-100" alt="main_logo">
-                <span class="ms-2 mb-5 font-weight-bold">Manajemen Surat</span>
+                <span class="ms-2 mb-5 font-weight-bold">Pengarsipan Surat</span>
             </a>
         </div>
         <hr class="horizontal dark mt-0">
