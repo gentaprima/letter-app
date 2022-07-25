@@ -18,8 +18,8 @@ class LetterController extends Controller
     public function index($type)
     {
         $data['users'] = ModelUsers::select('id', 'full_name', 'role')->get();
-        $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name', 'instansi.nama_instansi')->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
-            ->leftJoin('instansi', 'surat.id_instansi', '=', 'instansi.id')->where('type', $type);
+        $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name')->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
+            ->where('type', $type);
         if (session("users")['role'] !== 0 && session("users")['role'] !== 4) {
             $data['letter'] = $data['letter']->where('id_users', session("users")['id']);
         }
@@ -75,7 +75,10 @@ class LetterController extends Controller
 
     public function add($type)
     {
-        $data['instance'] = ModelInstance::select('id', 'nama_instansi')->get();
+        $data['last_id'] = ModelLetter::count() + 1;
+        $array_bln = array(1 => "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII");
+        $data['month'] = $array_bln[date('n')];
+
         $data['users'] = ModelUsers::select('id', 'full_name', 'role')->get();
         if ($type == 0) {
             $data['title'] = "Tambah Surat Masuk";
@@ -114,7 +117,7 @@ class LetterController extends Controller
             $request->session()->flash('message', $validate->errors()->first());
         }
         $file = $request->file('foto_lampiran');
-    
+
         $fileNames = "";
         foreach ($file as $f) {
             $name = uniqid() . ".jpg";
@@ -138,8 +141,10 @@ class LetterController extends Controller
     {
         $data = ModelLetter::find($id);
         $data->update([
-            'is_out_letter_approve' => 1
+            'is_out_letter_approve' => 1,
+            'is_arsip' => 1
         ]);
+
         Session::flash('icon', 'success');
         Session::flash('title', 'Success');
         Session::flash('message', 'Berhasil Acc Surat Keluar');
@@ -158,14 +163,13 @@ class LetterController extends Controller
 
     public function show($id, $type)
     {
-        $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name', 'instansi.nama_instansi')->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
-            ->leftJoin('instansi', 'surat.id_instansi', '=', 'instansi.id')->where('type', $type)->find($id);
+        $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name')->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
+            ->where('type', $type)->find($id);
         $data['letter']->foto_lampiran = explode(',', $data['letter']->foto_lampiran);
-        $data['instance'] = ModelInstance::select('id', 'nama_instansi')->get();
         $data['users'] = ModelUsers::select('id', 'full_name', 'role')->get();
         $data['isArsip'] = ArsipModel::where('id_surat', $id)->get()->count();
         $data['eval'] = EvaluationLetter::where('id_surat', $data['letter']->id)->leftJoin('tbl_users', 'tindak_lanjut.disposisi', 'tbl_users.id')->get();
-        $data['isEval'] =EvaluationLetter::where('is_approve',1)->where('id_surat', $data['letter']->id)->get()->count();
+        $data['isEval'] = EvaluationLetter::where('is_approve', 1)->where('id_surat', $data['letter']->id)->get()->count();
         foreach ($data['eval'] as $user) {
             if ($user->role == 0) {
                 $user->role = "Admin";
@@ -227,26 +231,24 @@ class LetterController extends Controller
         return redirect()->back();
     }
 
-    public function report(Request $request,$type)
+    public function report(Request $request, $type)
     {
         $startDate = $request->startDate;
         $endDate = $request->endDate;
 
         $data['users'] = ModelUsers::select('id', 'full_name', 'role')->get();
-        if($startDate != null && $endDate != null){
-            
-            $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name', 'instansi.nama_instansi')
-                                        ->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
-                                        ->leftJoin('instansi', 'surat.id_instansi', '=', 'instansi.id')
-                                        ->where('type', $type)
-                                        ->whereBetween('tgl_surat',[$startDate,$endDate])
-                                        ->get();
+        if ($startDate != null && $endDate != null) {
+
+            $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name')
+                ->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
+                ->where('type', $type)
+                ->whereBetween('tgl_surat', [$startDate, $endDate])
+                ->get();
             $data['filter']  = true;
-        }else{
-            $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name', 'instansi.nama_instansi')
-                                        ->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
-                                        ->leftJoin('instansi', 'surat.id_instansi', '=', 'instansi.id')
-                                        ->where('type', $type)->get();
+        } else {
+            $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name')
+                ->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
+                ->where('type', $type)->get();
             $data['filter']  = false;
         }
         $i = 1;
@@ -296,5 +298,9 @@ class LetterController extends Controller
             $i++;
         }
         return view("report", $data);
+    }
+
+    public function reportOutput(){
+        return view("print_out");
     }
 }

@@ -12,8 +12,11 @@
         <div class="container-fluid">
             <div class="card p-5 rounded mb-3">
                     <div class="form-group">
+                      <div class="col-lg-6">
+                        <button id="printPDF" class="btn btn-primary">Print Surat</button>
+                      </div>
                         <div class="row">
-                          <div class="col-lg-6  pb-4 col-sm-12 col-md-6">
+                          <div class="col-lg-12  pb-4 col-sm-12 col-md-12">
                             <label for="exampleInputEmail1">No Surat</label>
                             <div class="input-group">
                               <span style="z-index: 1" class="input-group-text text-body">
@@ -49,7 +52,7 @@
                             </div>
                           </div>          
                           @endif
-                          <div class="col-lg-6 pb-4 col-sm-12 col-md-6">
+                          {{-- <div class="col-lg-6 pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1">Tanggal Surat</label>
                             <div class="input-group">
                               <span style="z-index: 1" class="input-group-text text-body">
@@ -59,17 +62,12 @@
                               </span>
                               <input disabled value="{{$letter->tgl_surat}}" required type="date" name="tgl_surat" class="form-control" id="exampleInputtanggal_surat1" aria-describedby="tanggalSuratHelp" placeholder="Tanggal Surat">
                             </div>
-                          </div>          
+                          </div>           --}}
                           @if(Request::segment(5) == 0) 
                           <div class="{{Request::segment(5) == 1 ? 'col-lg-6' : 'col-lg-3'}} pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1">{{Request::segment(5) == 1 ? 'Kepada' : 'Dari'}}</label>
                             <div class="input-group">
-                              <select disabled class="form-select" name="id_instansi" aria-label="Default select example">
-                                <option disabled selected="">Pilih Data</option>
-                                @foreach($instance as $ins)
-                                    <option value="{{$ins->id}}" {{ $letter->id_instansi == $ins->id ? 'selected' : '' }}>{{$ins->nama_instansi}}</option>
-                                @endforeach
-                              </select>
+                              <input type="text" readonly class="form-control" value="{{$letter->id_instansi}}">
                             </div>
                           </div>  
                           @else
@@ -82,7 +80,7 @@
                                     <path d="M16 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                                   </svg>
                               </span>
-                              <input disabled value="{{$letter->kepada}}" required type="text" name="no_surat" class="form-control" id="exampleInputno_surat1" required aria-describedby="no_suratHelp" placeholder="Format : R/01/KP.01/VI/2022">
+                              <input disabled value="Kepala Sekolah" required type="text" name="no_surat" class="form-control" id="exampleInputno_surat1" required aria-describedby="no_suratHelp" placeholder="Format : R/01/KP.01/VI/2022">
                             </div>
                           </div> 
                           @endif
@@ -92,12 +90,13 @@
                             <label for="exampleInputEmail1">Kepada</label>
                             <div class="input-group">
                               {{-- <input required type="date" name="tanggal_surat" class="form-control" id="exampleInputtanggal_surat1" aria-describedby="tanggalSuratHelp" placeholder="Tanggal Surat"> --}}
-                              <select disabled class="form-select" name="id_users" aria-label="Default select example">
+                              <input type="text" value="Kepala Sekolah" readonly id="" class="form-control">
+                              {{-- <select disabled class="form-select" name="id_users" aria-label="Default select example">
                                 <option selected="">Pilih Data</option>
                                 @foreach($users as $user)
                                   <option value="{{$user->id}}" {{ $letter->id_users == $user->id ? 'selected' : '' }}  >{{$user->full_name." - ". $user->role}}</option>
                                 @endforeach
-                              </select>
+                              </select> --}}
                             </div>
                           </div>
                           @endif       

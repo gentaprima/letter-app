@@ -5,6 +5,7 @@
 @section('title',$title)
 
 @section('content')
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <section class="content">
@@ -13,7 +14,7 @@
                     <div class="form-group">
                         <form action="/dashboard/surat/tambah/{{Request::segment(4)}}" method="POST"  enctype="multipart/form-data">
                         <div class="row">
-                          <div class="col-lg-6  pb-4 col-sm-12 col-md-6">
+                          <div class="col-lg-12 pb-4 col-sm-12 col-md-12">
                             <label for="exampleInputEmail1">No Surat</label>
                             <div class="input-group">
                               <span class="input-group-text text-body">
@@ -22,14 +23,14 @@
                                     <path d="M16 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                                   </svg>
                               </span>
-                              <input required type="text" name="no_surat" class="form-control" id="exampleInputno_surat1" required aria-describedby="no_suratHelp" placeholder="Format : R/01/KP.01/VI/2022">
+                              <input readonly value="{{str_pad($last_id, 3, '0', STR_PAD_LEFT)}}/100.{{Request::segment(4)}}/SMK-TPG2/{{$month}}/{{date('Y')}}" required type="text" name="no_surat" class="form-control" id="exampleInputno_surat1" required aria-describedby="no_suratHelp" placeholder="Format : R/01/KP.01/VI/2022">
                             </div>
                           </div>           
                          
                           
                           @if(Request::segment(4) == 1)
-                          <div class="col-lg-6 pb-4 col-sm-12 col-md-6">
-                            <label for="exampleInputEmail1">Kepada</label>
+                          <div class="col-lg-12 pb-4 col-sm-12 col-md-12">
+                            <label for="exampleInputEmail1">Ditujukkan</label>
                             <div class="input-group">
                               <span class="input-group-text text-body">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
@@ -51,11 +52,11 @@
                                     <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
                                   </svg>
                               </span>
-                              <input required type="date" name="tgl_terima" class="form-control" id="exampleInputtanggal_terima1" aria-describedby="tanggal_terimaHelp" placeholder="Tanggal Terima">
+                              <input readonly value="{{date('Y-m-d')}}" required  name="tgl_terima" class="form-control" id="exampleInputtanggal_terima1" aria-describedby="tanggal_terimaHelp" placeholder="Tanggal Terima">
                             </div>
                           </div>          
                           @endif   
-                          <div class="{{ Request::segment(4) == 1 ? 'col-lg-12' : 'col-lg-6' }} pb-4 col-sm-12 col-md-6">
+                          {{-- <div class="{{ Request::segment(4) == 1 ? 'col-lg-12' : 'col-lg-6' }} pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1">Tanggal Surat</label>
                             <div class="input-group">
                               <span class="input-group-text text-body">
@@ -65,29 +66,30 @@
                               </span>
                               <input required type="date" name="tgl_surat" class="form-control" id="exampleInputtanggal_surat1" aria-describedby="tanggalSuratHelp" placeholder="Tanggal Surat">
                             </div>
-                          </div>  
+                          </div>   --}}
                           @if(Request::segment(4) == 0) 
                           <div class="col-lg-3 pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1"> Dari</label>
                             <div class="input-group">
-                              <select class="form-select" name="id_instansi" aria-label="Default select example">
+                              {{-- <select class="form-select" name="id_instansi" aria-label="Default select example">
                                 <option selected="">Pilih Data</option>
                                 @foreach($instance as $ins)
                                     <option value="{{$ins->id}}">{{$ins->nama_instansi}}</option>
                                 @endforeach
-                              </select>
+                              </select> --}}
+                              <input type="text" name="id_instansi" class="form-control">
                             </div>
                           </div>  
                           <div class="col-lg-3 pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1">Kepada</label>
                             <div class="input-group">
-                              {{-- <input required type="date" name="tanggal_surat" class="form-control" id="exampleInputtanggal_surat1" aria-describedby="tanggalSuratHelp" placeholder="Tanggal Surat"> --}}
-                              <select class="form-select" name="id_users" aria-label="Default select example">
+                              {{-- <select class="form-select" name="id_users" aria-label="Default select example">
                                 <option selected="">Pilih Data</option>
                                 @foreach($users as $user)
                                 <option value="{{$user->id}}">{{$user->full_name." - ". $user->role}}</option>
                                 @endforeach
-                              </select>
+                              </select> --}}
+                              <input type="text" class="form-control" value="Kepala Sekolah" readonly>
                             </div>
                           </div>
                           @endif       
@@ -104,7 +106,7 @@
                             </div>
                           </div>        
                           <div class="col-lg-12 pb-4 col-sm-12 col-md-12">
-                            <label for="exampleInputEmail1">Jumlah Lampiran</label>
+                            <label for="exampleInputEmail1">Jumlah Surat</label>
                             <div class="input-group">
                               <span class="input-group-text text-body">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-123" viewBox="0 0 16 16">

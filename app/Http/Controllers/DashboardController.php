@@ -18,7 +18,6 @@ class DashboardController extends Controller
         }
         $data['letterOut'] = $data['letterOut']->count();
         $data['letterIn'] = $data['letterIn']->count();
-        $data['instance'] = ModelInstance::count();
         return view("dashboard", $data);
     }
 }

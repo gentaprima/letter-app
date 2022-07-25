@@ -131,7 +131,7 @@
                     </a>
                 </li>
                 @endif
-                @if (session('users')['role'] == 0 || session('users')['role'] == 4)
+                {{-- @if (session('users')['role'] == 0 || session('users')['role'] == 4)
                     <li class="nav-item">
                         <a class="nav-link  {{ Request::is('dashboard/instansi') ? 'active' : '' }}"
                             href="/dashboard/instansi">
@@ -160,7 +160,7 @@
                             <span class="nav-link-text ms-1">Data Instansi</span>
                         </a>
                     </li>
-                @endif
+                @endif --}}
                 @if (session('users')['role'] == 0 || session('users')['role'] == 4)
                     <li class="nav-item mt-3">
                         <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Laporan</h6>

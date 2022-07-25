@@ -48,7 +48,7 @@
                 <td class="text-xs font-weight-bold mb-0">{{$row->no}}.</td>
                 <td class="text-xs font-weight-bold mb-0">{{$row->no_surat}}</td>
                 <td class="text-xs font-weight-bold mb-0">{{$row->tgl_surat}}</td>
-                <td class="text-xs font-weight-bold mb-0">{{$row->type == 1 ? $row->kepada : $row->nama_instansi." - ".$row->full_name.' - '.$row->role}}</td>
+                <td>PT ANU</td>
                 <td class="text-xs font-weight-bold mb-0">{{$row->perihal}}</td>
                 <td class="text-xs font-weight-bold mb-0">{{$row->lampiran}}</td>
                 <td class="text-xs font-weight-bold mb-0">{{$row->type == 0 ? "Surat Masuk" : "Surat Keluar"}}</td>

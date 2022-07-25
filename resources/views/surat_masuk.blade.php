@@ -33,7 +33,6 @@
                           @if(Request::segment(3) == 0 )
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Terima</th>
                           @endif
-                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Surat</th>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{Request::segment(3) == 1 ? 'Kepada' : 'Dari/Kepada' }}</th>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Perihal</th>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah Lampiran</th>
@@ -51,8 +50,7 @@
                           @if(Request::segment(3) == 0 )
                           <td class="text-xs font-weight-bold mb-0">{{$row->tgl_terima}}</td>
                           @endif
-                          <td class="text-xs font-weight-bold mb-0">{{$row->tgl_surat}}</td>
-                          <td class="text-xs font-weight-bold mb-0">{{Request::segment(3) == 1 ? $row->kepada : $row->nama_instansi." / ".$row->full_name.' - '.$row->role}}</td>
+                          <td class="text-xs font-weight-bold mb-0">{{Request::segment(3) == 1 ? $row->kepada : $row->id_instansi." / ".'Kepala Sekolah'}}</td>
                           <td class="text-xs font-weight-bold mb-0">{{$row->perihal}}</td>
                           <td class="text-xs font-weight-bold mb-0">{{$row->lampiran}}</td>
                           @if(Request::segment(3) == 1)

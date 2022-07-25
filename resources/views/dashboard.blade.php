@@ -69,7 +69,7 @@
                                                 <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah Instansi</p>
                                                 <h5 class="font-weight-bolder mb-0">
                                                     <span
-                                                        class="font-weight-bolder mb-0 text-success text-sm font-weight-bolder">{{ $instance }}</span>
+                                                        class="font-weight-bolder mb-0 text-success text-sm font-weight-bolder">1</span>
                                                 </h5>
                                             </div>
                                         </div>

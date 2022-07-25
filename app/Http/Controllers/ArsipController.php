@@ -13,8 +13,8 @@ class ArsipController extends Controller
     public function index(){
         $data['users'] = ModelUsers::select('id', 'full_name', 'role')->get();
 
-        $data['letter'] = ArsipModel::select('surat.*', 'arsip.tanggal_arsip','keterangan','tbl_users.role', 'tbl_users.id as id_users', 'full_name', 'instansi.nama_instansi')->leftJoin("surat",'arsip.id_surat','=','surat.id')->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
-        ->leftJoin('instansi', 'surat.id_instansi', '=', 'instansi.id')->paginate(10);
+        $data['letter'] = ArsipModel::select('surat.*', 'arsip.tanggal_arsip','keterangan','tbl_users.role', 'tbl_users.id as id_users', 'full_name')->leftJoin("surat",'arsip.id_surat','=','surat.id')->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
+        ->paginate(10);
         $i = 1;
 
         foreach ($data['users'] as $user) {
