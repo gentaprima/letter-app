@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class LetterController extends Controller
 {
@@ -300,7 +301,11 @@ class LetterController extends Controller
         return view("report", $data);
     }
 
-    public function reportOutput(){
-        return view("print_out");
+    public function reportOutput(Request $request, $id)
+    {
+        $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name')->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
+            ->where('type', $request->type)->find($id);
+        $pdf = Pdf::loadView('print_out',$data);
+        return $pdf->download('invoice.pdf');
     }
 }

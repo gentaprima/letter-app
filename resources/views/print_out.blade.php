@@ -4,20 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" initial-scale=1.0">
+    <meta name="viewport" initial-scale="1.0">
 
     <title>Kop Surat</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet">
 
     <style>
         body {
             background: rgb(204, 204, 204);
-            font-family: 'Roboto', sans-serif;
+
             font-size: 18px;
             color: #000000;
         }
@@ -133,7 +130,8 @@
 <body>
     <page size="A4">
         <header>
-            {{-- <img  src="https://upload.wikimedia.org/wikipedia/commons/3/31/Logo-smkterataiputihglobal.png" alt="Logo"> --}}
+            <img src="https://imgkub.com/images/2022/07/26/logo6cf18e0a4f23c843.jpg" alt="logo6cf18e0a4f23c843.jpg"
+                border="0">
             <center>
                 <label>
                     <government>
@@ -151,7 +149,8 @@
         <hr>
 
         <div class="content">
-            <h3><u>Detail Surat Masuk</u></h3>
+            <h3><u>{{ Request::get('type') == 0 ? 'Detail Surat Masuk' : (Request::get('type') == 1 ? 'Detail Surat Keluar' : 'Disposisi Surat') }}</u>
+            </h3>
             <center style="margin-top: -20px;">
                 <label class="nomor"></label>
             </center>
@@ -159,36 +158,94 @@
             <br>
 
             <table border="0" width="100%" style="font-size: 14px">
-                <tr>
-                    <td>No. Surat Masuk</td>
-                    <td >:</td>
-                    <td>Sampel</td>
-                </tr>
-                <tr>
-                    <td>Tanggal Terima</td>
-                    <td >:</td>
-                    <td>Sampel</td>
-                </tr>
-                <tr>
-                    <td>Dari</td>
-                    <td >:</td>
-                    <td>Sampel</td>
-                </tr>
-                <tr>
-                    <td>Kepada</td>
-                    <td >:</td>
-                    <td>Sampel</td>
-                </tr>
-                <tr>
-                    <td>Perihal Surat</td>
-                    <td >:</td>
-                    <td>Sampel</td>
-                </tr>
-                <tr>
-                    <td>Jumlah Surat</td>
-                    <td >:</td>
-                    <td>Sampel</td>
-                </tr>
+                @if (Request::get('type') == 0)
+                    <tr>
+                        <td>No. Surat Masuk</td>
+                        <td>:</td>
+                        <td>{{ $letter->no_surat }}</td>
+                    </tr>
+                    <tr>
+                        <td>Tanggal Terima</td>
+                        <td>:</td>
+                        <td>{{ $letter->tgl_terima }}</td>
+                    </tr>
+                    <tr>
+                        <td>Dari</td>
+                        <td>:</td>
+                        <td>{{ $letter->id_instansi }}</td>
+                    </tr>
+                    <tr>
+                        <td>Kepada</td>
+                        <td>:</td>
+                        <td>Kepala Sekolah</td>
+                    </tr>
+                    <tr>
+                        <td>Perihal Surat</td>
+                        <td>:</td>
+                        <td>{{ $letter->perihal }}</td>
+                    </tr>
+                    <tr>
+                        <td>Jumlah Surat</td>
+                        <td>:</td>
+                        <td>{{ $letter->lampiran }}</td>
+                    </tr>
+                @endif
+
+                @if (Request::get('type') == 1)
+                    <tr>
+                        <td>No. Surat Keluar</td>
+                        <td>:</td>
+                        <td>{{ $letter->no_surat }}</td>
+                    </tr>
+                    <tr>
+                        <td>Tanggal Surat</td>
+                        <td>:</td>
+                        <td>{{ $letter->tgl_terima }}</td>
+                    </tr>
+                    <tr>
+                        <td>Perihal Surat</td>
+                        <td>:</td>
+                        <td>{{ $letter->perihal }}</td>
+                    </tr>
+                    <tr>
+                        <td>Jumlah Surat</td>
+                        <td>:</td>
+                        <td>{{ $letter->lampiran }}</td>
+                    </tr>
+                @endif
+
+                @if (Request::get('type') == 2)
+                    <tr>
+                        <td>No. Disposisi</td>
+                        <td>:</td>
+                        <td>sample</td>
+                    </tr>
+                    <tr>
+                        <td>Kepada</td>
+                        <td>:</td>
+                        <td>sample</td>
+                    </tr>
+                    <tr>
+                        <td>Evaluasi</td>
+                        <td>:</td>
+                        <td>sample</td>
+                    </tr>
+                    <tr>
+                        <td>Jumlah Surat</td>
+                        <td>:</td>
+                        <td>sample</td>
+                    </tr>
+                    <tr>
+                        <td>Tanggal Approve</td>
+                        <td>:</td>
+                        <td>sample</td>
+                    </tr>
+                    <tr>
+                        <td>Status Approve</td>
+                        <td>:</td>
+                        <td>sample</td>
+                    </tr>
+                @endif
             </table>
         </div>
     </page>

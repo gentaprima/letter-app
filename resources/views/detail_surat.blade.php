@@ -13,7 +13,7 @@
             <div class="card p-5 rounded mb-3">
                     <div class="form-group">
                       <div class="col-lg-6">
-                        <button id="printPDF" class="btn btn-primary">Print Surat</button>
+                        <a href="/dashboard/report/output/surat/{{$letter->id}}?type={{Request::segment(5)}}" id="printPDF" class="btn btn-primary">Print Surat</a>
                       </div>
                         <div class="row">
                           <div class="col-lg-12  pb-4 col-sm-12 col-md-12">
@@ -39,9 +39,9 @@
                               <input disabled value="{{$letter->no_agenda}}" required type="number" name="no_agenda" class="form-control" id="exampleInputno_agenda1" aria-describedby="no_agendaHelp" placeholder="No Agenda">
                             </div>
                           </div>           --}}
-                          @if(Request::segment(5) == 0)
-                          <div class="col-lg-6 pb-4 col-sm-12 col-md-6">
-                            <label for="exampleInputEmail1">Tanggal Terima</label>
+                          
+                          <div class="{{Request::segment(5) == 0 ? 'col-lg-6 col-md-6' : 'col-lg-12 col-md-12'}} pb-4 col-sm-12">
+                            <label for="exampleInputEmail1">{{Request::segment(5) == 0 ? "Tanggal Terima": "Tanggal Surat"}}</label>
                             <div class="input-group">
                               <span style="z-index: 1" class="input-group-text text-body">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-calendar-event-fill" viewBox="0 0 16 16">
@@ -51,7 +51,6 @@
                               <input disabled value="{{$letter->tgl_terima}}" required type="date" name="tgl_terima" class="form-control" id="exampleInputtanggal_terima1" aria-describedby="tanggal_terimaHelp" placeholder="Tanggal Terima">
                             </div>
                           </div>          
-                          @endif
                           {{-- <div class="col-lg-6 pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1">Tanggal Surat</label>
                             <div class="input-group">
@@ -136,19 +135,34 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Approve</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status Approve</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
+                              @php
+                                  $i=1;
+                              @endphp
                               @foreach($eval as $e)
                               <tr>
-                                <td class="text-xs font-weight-bold mb-0">1.</td>
+                                <td class="text-xs font-weight-bold mb-0">{{$i}}.</td>
                                 <td class="text-xs font-weight-bold mb-0">{{ $e->full_name." - ".$e->role}}</td>
                                 <td class="text-xs font-weight-bold mb-0">{{$e->evaluasi}}</td>
                                 <td class="text-xs font-weight-bold mb-0">{{$e->tindak_lanjut}}</td>
                                 <td class="text-xs font-weight-bold mb-0">{{$e->tanggal}}</td>
                                 <td class="text-xs font-weight-bold mb-0">{{$e->approve_date ?? '-' }}</td>
                                 <td class="text-xs font-weight-bold mb-0"><span class="{{ $e->is_approve == 1 ? "bg-success" : 'bg-warning' }} pt-1 pb-1 text-white" style="padding-left: 10px;padding-right:10px;border-radius:5px"> {{$e->is_approve == 1 ? "Diteruskan Langsung" : "Belum Ada Konfirmasi"}}</span></td>
+                                <td>
+                                  <a href="/dashboard/report/output/surat/{{$letter->id}}?type=2" style="margin-right:10px" class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
+                                      <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/>
+                                      <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+                                    </svg>
+                                  </a>
+                                </td>
                               </tr>
+                              @php
+                                  $i++;
+                              @endphp
                               @endforeach
                             </tbody>
                         </table>

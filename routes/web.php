@@ -51,7 +51,7 @@ Route::group(['middleware' => 'check.login', 'prefix' => '/dashboard'], function
 
     //route report
     Route::get("/report/{type}", "LetterController@report");
-    Route::get("/report/output/surat","LetterController@reportOutput");
+    Route::get("/report/output/surat/{id}","LetterController@reportOutput");
 });
 
 // Route::middleware(['auth','checkLogin'])->group(function(){

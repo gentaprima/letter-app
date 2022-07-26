@@ -23,7 +23,7 @@
                                     <path d="M16 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                                   </svg>
                               </span>
-                              <input readonly value="{{str_pad($last_id, 3, '0', STR_PAD_LEFT)}}/100.{{Request::segment(4)}}/SMK-TPG2/{{$month}}/{{date('Y')}}" required type="text" name="no_surat" class="form-control" id="exampleInputno_surat1" required aria-describedby="no_suratHelp" placeholder="Format : R/01/KP.01/VI/2022">
+                              <input readonly value="{{str_pad($last_id, 3, '0', STR_PAD_LEFT)}}/100.{{Request::segment(4) == 0 ? '1' : '2'}}/SMK-TPG2/{{$month}}/{{date('Y')}}" required type="text" name="no_surat" class="form-control" id="exampleInputno_surat1" required aria-describedby="no_suratHelp" placeholder="Format : R/01/KP.01/VI/2022">
                             </div>
                           </div>           
                          
@@ -43,9 +43,8 @@
                             </div>
                           </div>     
                           @endif
-                          @if(Request::segment(4) == 0)
-                          <div class="col-lg-6 pb-4 col-sm-12 col-md-6">
-                            <label for="exampleInputEmail1">Tanggal Terima</label>
+                          <div class="{{Request::segment(4) == 0 ? 'col-lg-6 col-md-6' : 'col-lg-12 col-md-12' }} pb-4 col-sm-12">
+                            <label for="exampleInputEmail1">{{Request::segment(4) == 0 ? "Tanggal Terima" : "Tanggal Surat"}}</label>
                             <div class="input-group">
                               <span class="input-group-text text-body">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-calendar-event-fill" viewBox="0 0 16 16">
@@ -55,18 +54,7 @@
                               <input readonly value="{{date('Y-m-d')}}" required  name="tgl_terima" class="form-control" id="exampleInputtanggal_terima1" aria-describedby="tanggal_terimaHelp" placeholder="Tanggal Terima">
                             </div>
                           </div>          
-                          @endif   
-                          {{-- <div class="{{ Request::segment(4) == 1 ? 'col-lg-12' : 'col-lg-6' }} pb-4 col-sm-12 col-md-6">
-                            <label for="exampleInputEmail1">Tanggal Surat</label>
-                            <div class="input-group">
-                              <span class="input-group-text text-body">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-calendar-event-fill" viewBox="0 0 16 16">
-                                    <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
-                                  </svg>
-                              </span>
-                              <input required type="date" name="tgl_surat" class="form-control" id="exampleInputtanggal_surat1" aria-describedby="tanggalSuratHelp" placeholder="Tanggal Surat">
-                            </div>
-                          </div>   --}}
+                          
                           @if(Request::segment(4) == 0) 
                           <div class="col-lg-3 pb-4 col-sm-12 col-md-6">
                             <label for="exampleInputEmail1"> Dari</label>
