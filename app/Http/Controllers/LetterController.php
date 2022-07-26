@@ -306,6 +306,6 @@ class LetterController extends Controller
         $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name')->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
             ->where('type', $request->type)->find($id);
         $pdf = Pdf::loadView('print_out',$data);
-        return $pdf->download('invoice.pdf');
+        return $pdf->download(date('m-d-Y').'.pdf');
     }
 }
