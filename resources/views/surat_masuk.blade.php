@@ -35,7 +35,7 @@
                           @endif
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{Request::segment(3) == 1 ? 'Kepada' : 'Dari/Kepada' }}</th>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Perihal</th>
-                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah Lampiran</th>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah Surat</th>
                           @if(Request::segment(3) ==1)
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                           @endif

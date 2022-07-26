@@ -113,7 +113,7 @@
                             </div>
                           </div>        
                           <div class="col-lg-12 pb-4 col-sm-12 col-md-12">
-                            <label for="exampleInputEmail1">Jumlah Lampiran</label>
+                            <label for="exampleInputEmail1">Jumlah Surat</label>
                             <div class="input-group">
                               <span style="z-index: 1" class="input-group-text text-body">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-123" viewBox="0 0 16 16">

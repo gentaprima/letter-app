@@ -35,7 +35,7 @@
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No Surat</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Dari/Kepada</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Perihal</th>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah Lampiran</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah Surat</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tipe Surat</th>
 
               </tr>
