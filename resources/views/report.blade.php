@@ -33,7 +33,6 @@
               <tr>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No Surat</th>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Surat</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Dari/Kepada</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Perihal</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah Lampiran</th>
@@ -42,13 +41,12 @@
               </tr>
             </thead>
             <tbody>
-
+              
               @foreach($letter as $row)
               <tr>
                 <td class="text-xs font-weight-bold mb-0">{{$row->no}}.</td>
                 <td class="text-xs font-weight-bold mb-0">{{$row->no_surat}}</td>
-                <td class="text-xs font-weight-bold mb-0">{{$row->tgl_surat}}</td>
-                <td>PT ANU</td>
+                <td class="text-xs font-weight-bold mb-0">{{$row->type == 0 ? $row->id_instansi :$row->kepada}}</td>
                 <td class="text-xs font-weight-bold mb-0">{{$row->perihal}}</td>
                 <td class="text-xs font-weight-bold mb-0">{{$row->lampiran}}</td>
                 <td class="text-xs font-weight-bold mb-0">{{$row->type == 0 ? "Surat Masuk" : "Surat Keluar"}}</td>
