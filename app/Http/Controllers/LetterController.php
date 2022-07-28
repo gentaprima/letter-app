@@ -118,18 +118,21 @@ class LetterController extends Controller
             $request->session()->flash('message', $validate->errors()->first());
         }
         $file = $request->file('foto_lampiran');
-
+        $softCopy = $request->file("soft_copy");
         $fileNames = "";
         foreach ($file as $f) {
             $name = uniqid() . ".jpg";
             Storage::disk("uploads")->put($name, file_get_contents($f));
             $fileNames .= $name . ",";
         }
+        $softCopyName =  "pdf/" . uniqid() . ".pdf";
+        Storage::disk("uploads")->put($softCopyName, file_get_contents($softCopy));
         $input = $request->all();
         $input['id_users'] = isset($input['id_users']) ? $input['id_users'] : null;
         $input['kepada'] = isset($input['kepada']) ? $input['kepada'] : null;
         $input['is_arsip'] = false;
         $input['type'] = $type;
+        $input['soft_copy'] = $softCopyName;
         $input['foto_lampiran'] = substr($fileNames, 0, strlen($fileNames) - 1);
         ModelLetter::create($input);
         $request->session()->flash('icon', 'success');
@@ -169,8 +172,9 @@ class LetterController extends Controller
         $data['letter']->foto_lampiran = explode(',', $data['letter']->foto_lampiran);
         $data['users'] = ModelUsers::select('id', 'full_name', 'role')->get();
         $data['isArsip'] = ArsipModel::where('id_surat', $id)->get()->count();
-        $data['eval'] = EvaluationLetter::where('id_surat', $data['letter']->id)->leftJoin('tbl_users', 'tindak_lanjut.disposisi', 'tbl_users.id')->get();
+        $data['eval'] = EvaluationLetter::select("*", "tindak_lanjut.id as id_eval")->where('id_surat', $data['letter']->id)->leftJoin('tbl_users', 'tindak_lanjut.disposisi', 'tbl_users.id')->get();
         $data['isEval'] = EvaluationLetter::where('is_approve', 1)->where('id_surat', $data['letter']->id)->get()->count();
+
         foreach ($data['eval'] as $user) {
             if ($user->role == 0) {
                 $user->role = "Admin";
@@ -303,9 +307,13 @@ class LetterController extends Controller
 
     public function reportOutput(Request $request, $id)
     {
-        $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name')->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
-            ->where('type', $request->type)->find($id);
-        $pdf = Pdf::loadView('print_out',$data);
-        return $pdf->download(date('m-d-Y').'.pdf');
+        if ($request->type != 2) {
+            $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name')->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
+                ->where('type', $request->type)->find($id);
+        } else {
+            $data['eval'] = EvaluationLetter::select("*", 'tbl_users.id as id_users')->leftJoin('tbl_users', 'tindak_lanjut.disposisi', 'tbl_users.id')->find($id);
+        }
+        $pdf = Pdf::loadView('print_out', $data);
+        return $pdf->download(date('m-d-Y hsi') . '.pdf');
     }
 }

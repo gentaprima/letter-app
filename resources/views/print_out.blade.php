@@ -218,32 +218,27 @@
                     <tr>
                         <td>No. Disposisi</td>
                         <td>:</td>
-                        <td>sample</td>
+                        <td>{{$eval->id}}</td>
                     </tr>
                     <tr>
                         <td>Kepada</td>
                         <td>:</td>
-                        <td>sample</td>
+                        <td>{{$eval->full_name." - ".$eval->role == 0 ? 'Admin' : ($eval->role == 1 ? 'Waka Kesiswaan' : ($eval->role == 2 ? 'Waka Kurikulum' : 'Waka Hubin'))}}</td>
                     </tr>
                     <tr>
                         <td>Evaluasi</td>
                         <td>:</td>
-                        <td>sample</td>
-                    </tr>
-                    <tr>
-                        <td>Jumlah Surat</td>
-                        <td>:</td>
-                        <td>sample</td>
+                        <td>{{$eval->evaluasi}}</td>
                     </tr>
                     <tr>
                         <td>Tanggal Approve</td>
                         <td>:</td>
-                        <td>sample</td>
+                        <td>{{$eval->approve_date}}</td>
                     </tr>
                     <tr>
                         <td>Status Approve</td>
                         <td>:</td>
-                        <td>sample</td>
+                        <td><span class="{{ $eval->is_approve == 1 ? "bg-success" : 'bg-warning' }} pt-1 pb-1 text-white" style="border-radius:5px"> {{$eval->is_approve == 1 ? "Diteruskan Langsung" : "Belum Ada Konfirmasi"}}</span></td>
                     </tr>
                 @endif
             </table>
