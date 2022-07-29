@@ -273,8 +273,9 @@
                                     <button onclick="add()" class="btn btn-primary">Disposisi</button>
                                 @endif
                                 @if (Request::segment(5) == 1 && session('users')->role == 4 && !$letter->is_out_letter_approve)
-                                    <a href="/dashboard/surat/accept/{{ $letter->id }}" class="btn btn-primary">Approve
-                                        Surat</a>
+                                    {{-- <a href="/dashboard/surat/accept/{{ $letter->id }}" class="btn btn-primary">Approve
+                                        Surat</a> --}}
+                                        <button class="btn btn-primary" onclick="showModal('#approv-surat')">Approve Surat</button>
                                 @endif
                                 <a href="/dashboard/surat/{{ Request::segment(5) }}"
                                     class="btn btn-secondary">Kembali</a>
@@ -309,16 +310,17 @@
     </div>
 
 
-    <div class="modal fade" id="show-pdf-modal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+    <div class="modal fade" id="approv-surat" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel">View PDF</h5>
+                    <h5 class="modal-title" id="addModalLabel">Approve Surat</h5>
                 </div>
                 <div class="modal-body">
-                    <iframe id="pdf-show" width="100%" height="500px" src="" frameborder="0"
-                        src="{{ $letter->soft_copy }}"></iframe>
+                    <div class="input-group">
+                        <textarea rows="5" style="padding-left:10px !important" type="text" name="keterangan" class="form-control" id="exampleInputtindak_lanjut1" aria-describedby="tindak_lanjutHelp" placeholder="Keterangan"></textarea>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="close" onclick="closeModal()" class="btn btn-secondary"
@@ -409,6 +411,25 @@
     </div>
 
 
+    <div class="modal fade" id="surat-keluar-modal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Approve Surat Keluar</h5>
+                </div>
+                <div class="modal-body">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="close" onclick="closeModal('#show-pdf-modal')"
+                        class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal fade" id="responseModal" tabindex="-1" role="dialog" aria-labelledby="responseModalLabel"
         aria-hidden="true">

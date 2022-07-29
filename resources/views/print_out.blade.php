@@ -198,6 +198,11 @@
                         <td>{{ $letter->no_surat }}</td>
                     </tr>
                     <tr>
+                        <td>Kepada</td>
+                        <td>:</td>
+                        <td>{{ $letter->kepada }}</td>
+                    </tr>
+                    <tr>
                         <td>Tanggal Surat</td>
                         <td>:</td>
                         <td>{{ $letter->tgl_terima }}</td>

@@ -344,6 +344,7 @@
         @endif
         @yield('content')
     </main>
+    <script src="https://cdn.datatables.net/buttons/1.0.3/js/buttons.colVis.js"></script>
 
     <script>
         function showModal(id, elem) {
