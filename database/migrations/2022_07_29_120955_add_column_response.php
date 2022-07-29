@@ -14,7 +14,7 @@ class AddColumnResponse extends Migration
     public function up()
     {
         Schema::table("tindak_lanjut",function($table){
-            $table->text("response");
+            $table->text("response")->nullable();
         });
     }
 
