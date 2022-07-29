@@ -34,7 +34,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-12 pb-4 col-sm-12 col-md-12">
-                                    <label for="exampleInputEmail1">No Surat</label>
+                                    <label for="exampleInputEmail1">No Surat {{Request::segment(4) == 0 ? 'Masuk' : 'Keluar'}}</label>
                                     <div class="input-group">
                                         <span style="z-index: 10" class="input-group-text text-body">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"

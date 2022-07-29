@@ -113,23 +113,23 @@
                         <span class="nav-link-text ms-1">Surat Masuk</span>
                     </a>
                 </li>
-                @if(session('users')['role'] == 0 || session('users')['role'] == 4 )
-                <li class="nav-item">
-                    <a class="nav-link  {{ Request::is('dashboard/surat/1') || Request::is('dashboard/surat/tambah/1') ? 'active' : '' }}"
-                        href="/dashboard/surat/1">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-send-check-fill" viewBox="0 0 16 16">
-                                <path class="color-background"
-                                    d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 1.59 2.498C8 14 8 13 8 12.5a4.5 4.5 0 0 1 5.026-4.47L15.964.686Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
-                                <path class="color-background"
-                                    d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686Z" />
-                            </svg>
-                        </div>
-                        <span class="nav-link-text ms-1">Surat Keluar</span>
-                    </a>
-                </li>
+                @if (session('users')['role'] == 0 || session('users')['role'] == 4)
+                    <li class="nav-item">
+                        <a class="nav-link  {{ Request::is('dashboard/surat/1') || Request::is('dashboard/surat/tambah/1') ? 'active' : '' }}"
+                            href="/dashboard/surat/1">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-send-check-fill" viewBox="0 0 16 16">
+                                    <path class="color-background"
+                                        d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 1.59 2.498C8 14 8 13 8 12.5a4.5 4.5 0 0 1 5.026-4.47L15.964.686Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
+                                    <path class="color-background"
+                                        d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686Z" />
+                                </svg>
+                            </div>
+                            <span class="nav-link-text ms-1">Surat Keluar</span>
+                        </a>
+                    </li>
                 @endif
                 {{-- @if (session('users')['role'] == 0 || session('users')['role'] == 4)
                     <li class="nav-item">
@@ -170,8 +170,9 @@
                             href="/dashboard/report/0">
                             <div
                                 class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-file-earmark-arrow-down-fill"
+                                    viewBox="0 0 16 16">
                                     <path class="color-background"
                                         d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zm-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0z" />
                                 </svg>
@@ -185,8 +186,8 @@
                             href="/dashboard/report/1">
                             <div
                                 class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-file-earmark-arrow-up-fill" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-file-earmark-arrow-up-fill" viewBox="0 0 16 16">
                                     <path class="color-background"
                                         d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM6.354 9.854a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 8.707V12.5a.5.5 0 0 1-1 0V8.707L6.354 9.854z" />
                                 </svg>
@@ -204,8 +205,8 @@
                             href="/dashboard/data-pengguna">
                             <div
                                 class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-people-fill" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
                                     <path class="color-background"
                                         d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                                     <path class="color-background" fill-rule="evenodd"
@@ -303,7 +304,8 @@
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark"
                                 href="javascript:;">Dashboard</a></li>
-                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">@yield('title')</li>
+                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">@yield('title')
+                        </li>
                     </ol>
                     <h6 class="font-weight-bolder mb-0">@yield('title')</h6>
                 </nav>
@@ -344,6 +346,10 @@
     </main>
 
     <script>
+        function showModal(id, elem) {
+            $(id).modal("show");
+            $('.form-response').attr("action", "/dashboard/disposisi/response/" + $(elem).data("id"))
+        }
         $(document).ready(function() {
             $('#edit-akun').click(function() {
                 $('#modalAkun').modal('show');
@@ -591,8 +597,8 @@
                         <label for="exampleInputEmail1">Nama Lengkap</label>
                         <div class="input-group">
                             <span class="input-group-text text-body">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor"
-                                    class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                    fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
                                     <path fill-rule="evenodd"
                                         d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
@@ -612,8 +618,8 @@
                         <label for="exampleInputEmail1">Email</label>
                         <div class="input-group">
                             <span class="input-group-text text-body">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor"
-                                    class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                    fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
                                     <path
                                         d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
                                 </svg>
@@ -628,23 +634,23 @@
                         <label for="exampleInputEmail1">Nomor Telepon</label>
                         <div class="input-group">
                             <span class="input-group-text text-body">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor"
-                                    class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                    fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd"
                                         d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
                                 </svg>
                             </span>
-                            <input value="{{ Session::get('users')->phone_number }}" type="phone" name="phoneNumber"
-                                class="form-control" id="exampleInputphoneNumber1" aria-describedby="phoneNumberHelp"
-                                placeholder="Nomor Telepon">
+                            <input value="{{ Session::get('users')->phone_number }}" type="phone"
+                                name="phoneNumber" class="form-control" id="exampleInputphoneNumber1"
+                                aria-describedby="phoneNumberHelp" placeholder="Nomor Telepon">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Tanggal Lahir</label>
                         <div class="input-group">
                             <span class="input-group-text text-body">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor"
-                                    class="bi bi-calendar-check-fill" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                    fill="currentColor" class="bi bi-calendar-check-fill" viewBox="0 0 16 16">
                                     <path
                                         d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-5.146-5.146-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708z" />
                                 </svg>
@@ -659,14 +665,14 @@
                         <div class="input-group">
                             <div class="form-check form-check-inline">
                                 <input name="gender" {{ Session::get('users')->gender == 0 ? 'checked' : '' }}
-                                    class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                                    value="0">
+                                    class="form-check-input" type="radio" name="inlineRadioOptions"
+                                    id="inlineRadio1" value="0">
                                 <label class="form-check-label" for="inlineRadio1">Laki-Laki</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input name="gender" {{ Session::get('users')->gender == 1 ? 'checked' : '' }}
-                                    class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                                    value="1">
+                                    class="form-check-input" type="radio" name="inlineRadioOptions"
+                                    id="inlineRadio2" value="1">
                                 <label class="form-check-label" for="inlineRadio2">Perempuan</label>
                             </div>
                         </div>

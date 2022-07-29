@@ -96,9 +96,11 @@
                                                 <path d="M16 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
                                             </svg>
                                         </span>
-                                        <input disabled value="Kepala Sekolah" required type="text" name="no_surat"
-                                            class="form-control" id="exampleInputno_surat1" required
-                                            aria-describedby="no_suratHelp" placeholder="Format : R/01/KP.01/VI/2022">
+                                        <input disabled
+                                            value="{{ Request::segment(5) == 1 ? $letter->kepada : $letter->id_instansi . ' / ' . 'Kepala Sekolah' }}"
+                                            required type="text" name="no_surat" class="form-control"
+                                            id="exampleInputno_surat1" required aria-describedby="no_suratHelp"
+                                            placeholder="Format : R/01/KP.01/VI/2022">
                                     </div>
                                 </div>
                             @endif
@@ -177,6 +179,9 @@
                                                     Tanggal Approve</th>
                                                 <th
                                                     class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                    Response</th>
+                                                <th
+                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                     Status Approve</th>
                                                 <th
                                                     class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -189,7 +194,9 @@
                                             @endphp
                                             @foreach ($eval as $e)
                                                 <tr>
-                                                    <td class="text-xs font-weight-bold mb-0">{{ $i }}.</td>
+                                                    <td class="text-xs font-weight-bold mb-0">
+                                                        {{ str_pad($i, 3, '0', STR_PAD_LEFT) . '/DS/' . str_pad($i, 2, '0', STR_PAD_LEFT) }}
+                                                    </td>
                                                     <td class="text-xs font-weight-bold mb-0">
                                                         {{ $e->full_name . ' - ' . $e->role }}</td>
                                                     <td class="text-xs font-weight-bold mb-0">{{ $e->evaluasi }}</td>
@@ -197,6 +204,9 @@
                                                     <td class="text-xs font-weight-bold mb-0">{{ $e->tanggal }}</td>
                                                     <td class="text-xs font-weight-bold mb-0">
                                                         {{ $e->approve_date ?? '-' }}</td>
+                                                    <td class="text-xs font-weight-bold mb-0">
+                                                        {{ $e->response != null ? $e->response : 'Belum ada response' }}
+                                                    </td>
                                                     <td class="text-xs font-weight-bold mb-0"><span
                                                             class="{{ $e->is_approve == 1 ? 'bg-success' : 'bg-warning' }} pt-1 pb-1 text-white"
                                                             style="padding-left: 10px;padding-right:10px;border-radius:5px">
@@ -216,6 +226,16 @@
                                                                     d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
                                                             </svg>
                                                         </a>
+                                                        @if ($e->response == null )                                                            
+                                                        <button class="btn btn-link m-0 p-0" data-id="{{$e->id_eval}}" onclick="showModal('#responseModal',this)">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                            height="16" fill="currentColor"
+                                                            class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+                                                            <path
+                                                            d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                                                        </svg>
+                                                    </button>
+                                                    @endif
                                                     </td>
                                                 </tr>
                                                 @php
@@ -246,13 +266,9 @@
                             <div class="col-lg-6 col-md-6 col-sm-12">
                                 {{-- @if (Request::segment(5) == 0 && $isEval && $letter->isArsip <= 0)
                                   @endif --}}
-                                @if ((session('users')->role == 0 && Request::segment(5) == 0 && $isEval > 0 && $isArsip <= 0) ||
-                                    (session('users')->role == 0 &&
-                                        $letter->is_out_letter_approve !== null &&
-                                        $letter->is_out_letter_approve &&
-                                        $isArsip <= 0))
+                                {{-- @if ((session('users')->role == 0 && Request::segment(5) == 0 && $isEval > 0 && $isArsip <= 0) || (session('users')->role == 0 && $letter->is_out_letter_approve !== null && $letter->is_out_letter_approve && $isArsip <= 0))
                                     <button onclick="showArsip()" class="btn btn-success">Arsipkan</button>
-                                @endif
+                                @endif --}}
                                 @if (session('users')->role == 4 && Request::segment(5) == 0 && $isArsip <= 0)
                                     <button onclick="add()" class="btn btn-primary">Disposisi</button>
                                 @endif
@@ -279,11 +295,12 @@
                     <h5 class="modal-title" id="addModalLabel">View PDF</h5>
                 </div>
                 <div class="modal-body">
-                    <iframe id="pdf-show" width="100%" height="500px" src="{{asset("uploads/".$letter->soft_copy)}}" frameborder="0"></iframe>
+                    <iframe id="pdf-show" width="100%" height="500px"
+                        src="{{ asset('uploads/' . $letter->soft_copy) }}" frameborder="0"></iframe>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="close" onclick="closeModal('#show-pdf-modal')" class="btn btn-secondary"
-                        data-dismiss="modal">Close</button>
+                    <button type="button" id="close" onclick="closeModal('#show-pdf-modal')"
+                        class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>
@@ -366,6 +383,11 @@
                                 class="form-control" id="exampleInputtindak_lanjut1" aria-describedby="tindak_lanjutHelp"
                                 placeholder="Tindak Lanjut"></textarea>
                         </div>
+                        <label for="exampleInputEmail1">Keterangan Arsip</label>
+                        <div class="input-group">
+                            <textarea rows="5" style="padding-left:10px !important" type="text" name="keterangan" class="form-control"
+                                id="exampleInputtindak_lanjut1" aria-describedby="tindak_lanjutHelp" placeholder="Keterangan"></textarea>
+                        </div>
                         @csrf
                         <label for="exampleInputEmail1">Approval</label>
                         <div class="input-group">
@@ -386,6 +408,29 @@
         </div>
     </div>
 
+
+
+    <div class="modal fade" id="responseModal" tabindex="-1" role="dialog" aria-labelledby="responseModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="responseModalLabel">Kirim Response</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="form-modal" class="form-response" method="POST" action="">
+                        <textarea name="response" class="form-control" id="" cols="30" rows="10"></textarea>
+                        @csrf
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="close" onclick="closeModal('#responseModal')" class="btn btn-secondary"
+                        data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Kirim Response</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal fade" id="arsipModal" tabindex="-1" role="dialog" aria-labelledby="arsipModalLabel"
         aria-hidden="true">

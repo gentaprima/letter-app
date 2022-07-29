@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 
 class LetterController extends Controller
 {
@@ -174,8 +175,8 @@ class LetterController extends Controller
         $data['isArsip'] = ArsipModel::where('id_surat', $id)->get()->count();
         $data['eval'] = EvaluationLetter::select("*", "tindak_lanjut.id as id_eval")->where('id_surat', $data['letter']->id)->leftJoin('tbl_users', 'tindak_lanjut.disposisi', 'tbl_users.id')->get();
         $data['isEval'] = EvaluationLetter::where('is_approve', 1)->where('id_surat', $data['letter']->id)->get()->count();
-
         foreach ($data['eval'] as $user) {
+            $user['number_of_role'] = $user['role'];
             if ($user->role == 0) {
                 $user->role = "Admin";
             }
@@ -223,6 +224,7 @@ class LetterController extends Controller
         $data = ModelLetter::find($id);
         $data->update([
             'id_users' => $request->id_users,
+            'is_arsip' => 1
         ]);
         EvaluationLetter::create([
             'disposisi' => $request->id_users,
@@ -232,6 +234,11 @@ class LetterController extends Controller
             'id_surat' => $data->id,
             'is_approve' => $request->approve,
             'approve_date' => $request->approve ? Carbon::now() : null
+        ]);
+        DB::table("arsip")->insert([
+            'id_surat' => $id,
+            'tanggal_arsip' => date("Y-m-d"),
+            'keterangan' => $request->keterangan
         ]);
         return redirect()->back();
     }
@@ -315,5 +322,16 @@ class LetterController extends Controller
         }
         $pdf = Pdf::loadView('print_out', $data);
         return $pdf->download(date('m-d-Y hsi') . '.pdf');
+    }
+
+    public function addResponseDisposition(Request $request, $id)
+    {
+        EvaluationLetter::find($id)->update([
+            'response' => $request->response
+        ]);
+        $request->session()->flash('icon', 'success');
+        $request->session()->flash('title', 'Success');
+        $request->session()->flash('message', 'Berhasil Mengirim Response Disposisi');
+        return redirect()->back();
     }
 }
