@@ -23,20 +23,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3">
-                        <select name="" id="" class="form-control">
-                            <option value="0">-- Filter Kolom --</option>
-                            <option value="0">No</option>
-                            <option value="1">No Surat</option>
-                            <option value="2">Tanggal Arsip</option>
-                            <option value="3">Dari/Kepada</option>
-                            <option value="4">Perihal</option>
-                            <option value="5">Keterangan</option>
-                            <option value="6">Jumlah Surat</option>
-                            <option value="7">Tipe Surat</option>
-                            <option value="8">Aksi</option>
-                        </select>
-                    </div>
                     <div class="table-responsive p-0">
                         <table id="table" class="table table-striped">
                             <thead>

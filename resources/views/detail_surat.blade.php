@@ -213,7 +213,7 @@
                                                             {{ $e->is_approve == 1 ? 'Diteruskan Langsung' : 'Belum Ada Konfirmasi' }}</span>
                                                     </td>
                                                     <td>
-                                                        <a href="/dashboard/report/output/surat/{{ $e->id_eval }}?type=2"
+                                                        <a href="/dashboard/report/output/surat/{{ $e->id_eval }}?type=2&id={{ str_pad($i, 3, '0', STR_PAD_LEFT) . '/DS/' . str_pad($i, 2, '0', STR_PAD_LEFT) }}"
                                                             style="margin-right:10px"
                                                             class="text-danger font-weight-bold text-xs"
                                                             data-toggle="tooltip" data-original-title="Edit user">
@@ -226,16 +226,18 @@
                                                                     d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
                                                             </svg>
                                                         </a>
-                                                        @if ($e->response == null )                                                            
-                                                        <button class="btn btn-link m-0 p-0" data-id="{{$e->id_eval}}" onclick="showModal('#responseModal',this)">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                            height="16" fill="currentColor"
-                                                            class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
-                                                            <path
-                                                            d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                                                        </svg>
-                                                    </button>
-                                                    @endif
+                                                        @if ($e->response == null)
+                                                            <button class="btn btn-link m-0 p-0"
+                                                                data-id="{{ $e->id_eval }}"
+                                                                onclick="showModal('#responseModal',this)">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                    height="16" fill="currentColor"
+                                                                    class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+                                                                    <path
+                                                                        d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                                                                </svg>
+                                                            </button>
+                                                        @endif
                                                     </td>
                                                 </tr>
                                                 @php
@@ -275,7 +277,8 @@
                                 @if (Request::segment(5) == 1 && session('users')->role == 4 && !$letter->is_out_letter_approve)
                                     {{-- <a href="/dashboard/surat/accept/{{ $letter->id }}" class="btn btn-primary">Approve
                                         Surat</a> --}}
-                                        <button class="btn btn-primary" onclick="showModal('#approv-surat')">Approve Surat</button>
+                                    <button class="btn btn-primary" onclick="showModal('#approv-surat')">Approve
+                                        Surat</button>
                                 @endif
                                 <a href="/dashboard/surat/{{ Request::segment(5) }}"
                                     class="btn btn-secondary">Kembali</a>
@@ -317,19 +320,23 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="addModalLabel">Approve Surat</h5>
                 </div>
-                <div class="modal-body">
-                    <div class="input-group">
-                        <textarea rows="5" style="padding-left:10px !important" type="text" name="keterangan" class="form-control" id="exampleInputtindak_lanjut1" aria-describedby="tindak_lanjutHelp" placeholder="Keterangan"></textarea>
+                <form action="/dashboard/surat/accept/{{ Request::segment(4) }}" method="post">
+                    <div class="modal-body">
+                        <label for="exampleInputEmail1">Keterangan Arsip</label>
+                        <div class="input-group">
+                            <textarea rows="5" style="padding-left:10px !important" type="text" name="keterangan" class="form-control"
+                                id="exampleInputtindak_lanjut1" aria-describedby="tindak_lanjutHelp" placeholder="Keterangan"></textarea>
+                        </div>
+                        @csrf
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="close" onclick="closeModal()" class="btn btn-secondary"
-                        data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                    </form>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" id="close" onclick="closeModal()" class="btn btn-secondary"
+                            data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                </form>
             </div>
         </div>
+    </div>
     </div>
     <script>
         function closeModal(id) {
@@ -419,7 +426,7 @@
                     <h5 class="modal-title" id="addModalLabel">Approve Surat Keluar</h5>
                 </div>
                 <div class="modal-body">
-                    
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="close" onclick="closeModal('#show-pdf-modal')"
@@ -444,8 +451,8 @@
                         @csrf
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="close" onclick="closeModal('#responseModal')" class="btn btn-secondary"
-                        data-dismiss="modal">Close</button>
+                    <button type="button" id="close" onclick="closeModal('#responseModal')"
+                        class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Kirim Response</button>
                     </form>
                 </div>

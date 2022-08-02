@@ -223,7 +223,7 @@
                     <tr>
                         <td>No. Disposisi</td>
                         <td>:</td>
-                        <td>{{$eval->id}}</td>
+                        <td>{{Request::get("id")}}</td>
                     </tr>
                     <tr>
                         <td>Kepada</td>

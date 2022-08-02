@@ -345,6 +345,9 @@
         @yield('content')
     </main>
     <script src="https://cdn.datatables.net/buttons/1.0.3/js/buttons.colVis.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
     <script>
         function showModal(id, elem) {
@@ -358,15 +361,32 @@
             $('#closemodal').click(function() {
                 $('#modalAkun').modal('hide');
             })
+            if ($(location).attr('href').split("/").splice(4, 5).join("/") === "arsip" || $(location).attr('href')
+                .split("/").splice(4, 5).join("/") === "report/1" || $(location).attr('href')
+                .split("/").splice(4, 5).join("/") === "report/0") {
+                buttons = ['excelHtml5', 'print', 'pdfHtml5', {
+                    extend: 'colvis',
+                    text: "Filter Column",
+                    columnText: function(dt, idx, title) {
+                        return (idx + 1) + ': ' + title;
+                    }
+                }];
+            } else {
+                buttons = ['excelHtml5', 'print', 'pdfHtml5'];
+            }
             table = $('#table').DataTable({
                 paging: false,
-                ordering: false,
-                info: false,
-                searching: true,
-                dom: 'lrt',
-                "buttons": ['excelHtml5', 'print', 'pdfHtml5']
-
+                // ordering: false,
+                // info: false,
+                // searching: true,
+                // dom: 'lrt',
+                // "buttons": ['excelHtml5', 'print', 'pdfHtml5','colvis']
+                dom: 'Bfrtip',
+                buttons: buttons
             });
+            $('.buttons-colvis').removeClass("dt-button")
+            $('.dt-button-collection').removeClass("dt-button")
+            $('.buttons-colvis').addClass("btn btn-primary")
             $('table').removeClass('dataTable')
             $('table').removeClass('no-footer')
             $('#searchBox').keyup(function() {
@@ -381,6 +401,10 @@
             $('#print').click(function() {
                 table.buttons(0, 1).trigger()
             })
+            $('.dataTables_filter').css("display", 'none')
+            $('.buttons-excel').css("display", 'none')
+            $('.buttons-pdf').css("display", 'none')
+            $('.buttons-print').css("display", 'none')
         });
     </script>
     <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>

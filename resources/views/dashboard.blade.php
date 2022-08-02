@@ -83,16 +83,19 @@
                                 </div>
                             </div>
                         </div>
+                        @if (session('users')['role'] == 4)
+                            
+                        
                         <div class="col-xl-4 col-sm-7 mb-xl-0 mb-4">
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="row">
                                         <div class="col-8">
                                             <div class="numbers">
-                                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah Yang Surat Berhasil Disposisi
+                                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah Surat Masuk Berhasil Disposisi
                                                 </p>
                                                 <span
-                                                    class="font-weight-bolder mb-0 text-success text-sm font-weight-bolder">{{ $letterOut }}</span>
+                                                    class="font-weight-bolder mb-0 text-success text-sm font-weight-bolder">{{ $dispos }}</span>
                                             </div>
                                         </div>
                                         <div class="col-4 text-end">
@@ -105,6 +108,29 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-xl-4 col-sm-7 mb-xl-0 mb-4 mt-5">
+                            <div class="card">
+                                <div class="card-body p-3">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="numbers">
+                                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Jumlah Surat Keluar Berhasil Diapprove
+                                                </p>
+                                                <span
+                                                    class="font-weight-bolder mb-0 text-success text-sm font-weight-bolder">{{ $outLetterApprove }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 text-end">
+                                            <div
+                                                class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                                                <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                     @endif
                     
                 </div>

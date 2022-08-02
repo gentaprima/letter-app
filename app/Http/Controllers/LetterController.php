@@ -142,14 +142,18 @@ class LetterController extends Controller
         return redirect()->back();
     }
 
-    public function acceptOutLetter($id)
+    public function acceptOutLetter(Request $request, $id)
     {
         $data = ModelLetter::find($id);
         $data->update([
             'is_out_letter_approve' => 1,
             'is_arsip' => 1
         ]);
-
+        DB::table("arsip")->insert([
+            'id_surat' => $id,
+            'tanggal_arsip' => date("Y-m-d"),
+            'keterangan' => $request->keterangan
+        ]);
         Session::flash('icon', 'success');
         Session::flash('title', 'Success');
         Session::flash('message', 'Berhasil Acc Surat Keluar');
@@ -254,7 +258,7 @@ class LetterController extends Controller
             $data['letter'] = ModelLetter::select('surat.*', 'tbl_users.role', 'tbl_users.id as id_users', 'full_name')
                 ->leftJoin('tbl_users', 'surat.id_users', '=', 'tbl_users.id')
                 ->where('type', $type)
-                ->whereBetween('tgl_surat', [$startDate, $endDate])
+                ->whereBetween('tgl_terima', [$startDate, $endDate])
                 ->get();
             $data['filter']  = true;
         } else {

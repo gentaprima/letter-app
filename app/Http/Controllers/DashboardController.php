@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\EvaluationLetter;
 use App\Models\ModelInstance;
 use App\Models\ModelLetter;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -21,6 +22,10 @@ class DashboardController extends Controller
         $data['countResponse'] = EvaluationLetter::where("response", '!=', null)->count();
         $data['letterOut'] = $data['letterOut']->count();
         $data['letterIn'] = $data['letterIn']->count();
+        $data['dispos'] = EvaluationLetter::where("is_approve", '=', 1)->distinct()->count("id_surat");
+        $data['outLetterApprove'] = DB::table("surat")->where("type",'=','1')->where("is_out_letter_approve",'1')->get()->count();
+        // dd($data['outLetterApprove']);
+
         return view("dashboard", $data);
     }
 }
