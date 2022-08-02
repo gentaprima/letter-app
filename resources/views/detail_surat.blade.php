@@ -195,7 +195,7 @@
                                             @foreach ($eval as $e)
                                                 <tr>
                                                     <td class="text-xs font-weight-bold mb-0">
-                                                        {{ str_pad($i, 3, '0', STR_PAD_LEFT) . '/DS/' . str_pad($i, 2, '0', STR_PAD_LEFT) }}
+                                                        {{ str_pad($i, 3, '0', STR_PAD_LEFT) . '/DS/' . str_pad($e->number_of_role, 2, '0', STR_PAD_LEFT) }}
                                                     </td>
                                                     <td class="text-xs font-weight-bold mb-0">
                                                         {{ $e->full_name . ' - ' . $e->role }}</td>
@@ -213,7 +213,7 @@
                                                             {{ $e->is_approve == 1 ? 'Diteruskan Langsung' : 'Belum Ada Konfirmasi' }}</span>
                                                     </td>
                                                     <td>
-                                                        <a href="/dashboard/report/output/surat/{{ $e->id_eval }}?type=2&id={{ str_pad($i, 3, '0', STR_PAD_LEFT) . '/DS/' . str_pad($i, 2, '0', STR_PAD_LEFT) }}"
+                                                        <a href="/dashboard/report/output/surat/{{ $e->id_eval }}?type=2&id={{ str_pad($i, 3, '0', STR_PAD_LEFT) . '/DS/' . str_pad($e->number_of_role, 2, '0', STR_PAD_LEFT) }}"
                                                             style="margin-right:10px"
                                                             class="text-danger font-weight-bold text-xs"
                                                             data-toggle="tooltip" data-original-title="Edit user">
