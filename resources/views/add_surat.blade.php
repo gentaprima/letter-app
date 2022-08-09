@@ -60,7 +60,7 @@
                                             </svg>
                                         </span>
                                         <input readonly
-                                            value="{{ str_pad($last_id, 3, '0', STR_PAD_LEFT) }}/100.{{ Request::segment(4) == 0 ? '1' : '2' }}/00/SMK-TPG2/{{ $month }}/{{ date('Y') }}"
+                                            value="{{ str_pad($last_id, 3, '0', STR_PAD_LEFT) }}/100.{{ Request::segment(4) == 0 ? '1' : '2' }}//SMK-TPG2/{{ $month }}/{{ date('Y') }}"
                                             required type="text" name="no_surat" class="form-control" id="no_surat"
                                             id="exampleInputno_surat1" required aria-describedby="no_suratHelp"
                                             placeholder="Format : R/01/KP.01/VI/2022">

@@ -77,7 +77,7 @@
                                                 {{ $row->number_of_disposisi > 0 ? 'Sudah Disposisi' : 'Belum Disposisi' }}
                                             </td>
                                             <td class="text-xs font-weight-bold mb-0">
-                                                {{ ((($row->disposisi_name . ' - ' . $row->disposisiRole == 0 ? 'Admin' : $row->disposisiRole == 1) ? 'Waka Kesiswaan' : $row->disposisiRole == 2) ? 'Waka Kurikulum' : $row->disposisiRole == 3) ? 'Waka Hubin' :( $row->disposisiRole == 4 ? 'Kepala Sekolah' : "-" )}}
+                                                {{ $row->disposisi_name." - ".$row->disposisiRole }}
                                             </td>
                                         @endif
                                         @if (Request::segment(3) == 1)

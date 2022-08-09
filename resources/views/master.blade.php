@@ -344,10 +344,11 @@
         @endif
         @yield('content')
     </main>
-    <script src="https://cdn.datatables.net/buttons/1.0.3/js/buttons.colVis.js"></script>
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript"
+        src="https://cdn.datatables.net/t/ju-1.11.4/jq-2.2.0,dt-1.10.11,b-1.1.2,b-colvis-1.1.2,b-html5-1.1.2,b-print-1.1.2/datatables.min.js">
+    </script>
 
     <script>
         function showModal(id, elem) {
@@ -367,6 +368,7 @@
                 buttons = ['excelHtml5', 'print', 'pdfHtml5', {
                     extend: 'colvis',
                     text: "Filter Column",
+
                     columnText: function(dt, idx, title) {
                         return (idx + 1) + ': ' + title;
                     }
@@ -384,6 +386,10 @@
                 dom: 'Bfrtip',
                 buttons: buttons
             });
+            $('.buttons-colvis').click(function() {
+                console.log("OK");
+                $('.dt-button-background').css('position', 'relative');
+            })
             $('.buttons-colvis').removeClass("dt-button")
             $('.dt-button-collection').removeClass("dt-button")
             $('.buttons-colvis').addClass("btn btn-primary")
@@ -395,6 +401,9 @@
 
             $('#excel').click(function() {
                 table.buttons(0, 0).trigger()
+            })
+            $('#pdf').click(function() {
+                table.buttons(0, 2).trigger()
             })
             $('#print').click(function() {
                 table.buttons(0, 1).trigger()

@@ -74,7 +74,24 @@ class LetterController extends Controller
             }
             if ($countDisposisi > 0) {
                 $letter->disposisi_name = $disposisiLast->full_name;
-                $letter->disposisiRole = $disposisiLast->role;
+                if ($disposisiLast->role == 0) {
+                    $letter->disposisiRole = "Admin";
+                }
+                if ($disposisiLast->role == 1) {
+                    $letter->disposisiRole = "Waka Kesiswaan";
+                }
+
+                if ($disposisiLast->role == 2) {
+                    $letter->disposisiRole = "Waka Kurikulum";
+                }
+
+                if ($disposisiLast->role == 3) {
+                    $letter->disposisiRole = "Waka Hubin";
+                }
+                if ($disposisiLast->role == 4) {
+                    $letter->disposisiRole = "Kepala Sekolah";
+                }
+
                 $letter->number_of_disposisi = $countDisposisi;
             }
             $i++;
