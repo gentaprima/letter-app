@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\ArsipModel;
 use App\Models\EvaluationLetter;
-use App\Models\ModelInstance;
 use App\Models\ModelLetter;
 use App\Models\ModelUsers;
 use Carbon\Carbon;
@@ -53,6 +52,9 @@ class LetterController extends Controller
         }
         foreach ($data['letter'] as $letter) {
             $letter->no = $i;
+            $disposisi = DB::table("tindak_lanjut")->where("id_surat", $letter->id)->join('tbl_users', 'tindak_lanjut.disposisi', 'tbl_users.id');
+            $disposisiLast = $disposisi->first();
+            $countDisposisi = $disposisi->get()->count();
             if ($letter->role == 0) {
                 $letter->role = "Admin";
             }
@@ -69,6 +71,11 @@ class LetterController extends Controller
             }
             if ($user->role == 4) {
                 $user->role = "Kepala Sekolah";
+            }
+            if ($countDisposisi > 0) {
+                $letter->disposisi_name = $disposisiLast->full_name;
+                $letter->disposisiRole = $disposisiLast->role;
+                $letter->number_of_disposisi = $countDisposisi;
             }
             $i++;
         }

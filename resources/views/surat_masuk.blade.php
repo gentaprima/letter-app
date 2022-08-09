@@ -45,8 +45,13 @@
                                         {{ Request::segment(3) == 1 ? 'Kepada' : 'Dari/Kepada' }}</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Perihal
                                     </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah
-                                        Surat</th>
+                                    @if (Request::segment(3) == 0)
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Status</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Diteruskan Kepada
+                                        </th>
+                                    @endif
                                     @if (Request::segment(3) == 1)
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Status</th>
@@ -61,13 +66,20 @@
                                         <td class="text-xs font-weight-bold mb-0">{{ $row->no }}.</td>
                                         <td class="text-xs font-weight-bold mb-0">{{ $row->no_surat }}</td>
                                         {{-- @if (Request::segment(3) == 0) --}}
-                                            <td class="text-xs font-weight-bold mb-0">{{ $row->tgl_terima }}</td>
+                                        <td class="text-xs font-weight-bold mb-0">{{ $row->tgl_terima }}</td>
                                         {{-- @endif --}}
                                         <td class="text-xs font-weight-bold mb-0">
-                                            {{ Request::segment(3) == 1 ? $row->kepada : 'Kepala Sekolah' }}
+                                            {{ Request::segment(3) == 1 ? $row->kepada : 'Kepala Sekolah - ' . $row->id_instansi }}
                                         </td>
                                         <td class="text-xs font-weight-bold mb-0">{{ $row->perihal }}</td>
-                                        <td class="text-xs font-weight-bold mb-0">{{ $row->lampiran }}</td>
+                                        @if (Request::segment(3) == 0)
+                                            <td class="text-xs font-weight-bold mb-0">
+                                                {{ $row->number_of_disposisi > 0 ? 'Sudah Disposisi' : 'Belum Disposisi' }}
+                                            </td>
+                                            <td class="text-xs font-weight-bold mb-0">
+                                                {{ ((($row->disposisi_name . ' - ' . $row->disposisiRole == 0 ? 'Admin' : $row->disposisiRole == 1) ? 'Waka Kesiswaan' : $row->disposisiRole == 2) ? 'Waka Kurikulum' : $row->disposisiRole == 3) ? 'Waka Hubin' :( $row->disposisiRole == 4 ? 'Kepala Sekolah' : "-" )}}
+                                            </td>
+                                        @endif
                                         @if (Request::segment(3) == 1)
                                             <td class="text-xs font-weight-bold mb-0">
                                                 {{ $row->is_out_letter_approve == 1 ? 'Sudah Diapprove' : 'Belum Diapprove' }}

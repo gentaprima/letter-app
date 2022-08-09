@@ -40,8 +40,6 @@
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Keterangan</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah
-                                        Surat</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tipe
                                         Surat</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi
@@ -57,10 +55,9 @@
                                         <td class="text-xs font-weight-bold mb-0">{{ $row->tgl_terima }}</td>
                                         <td class="text-xs font-weight-bold mb-0">{{ $row->tanggal_arsip }}</td>
                                         <td class="text-xs font-weight-bold mb-0">
-                                            {{ $row->type == 1 ? $row->kepada : 'Kepala Sekolah' }}</td>
+                                            {{ $row->type == 1 ? $row->kepada : 'Kepala Sekolah - '.$row->id_instansi }}</td>
                                         <td class="text-xs font-weight-bold mb-0">{{ $row->perihal }}</td>
                                         <td class="text-xs font-weight-bold mb-0">{{ $row->keterangan }}</td>
-                                        <td class="text-xs font-weight-bold mb-0">{{ $row->lampiran }}</td>
                                         <td class="text-xs font-weight-bold mb-0">
                                             {{ $row->type == 0 ? 'Surat Masuk' : 'Surat Keluar' }}</td>
                                         <td class="text-xs font-weight-bold mb-0">

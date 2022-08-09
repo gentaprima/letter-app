@@ -33,8 +33,23 @@
                                             PDF</button>
                                     </div>
                                 </div>
+                                @if (Request::segment(4) == 0)
+                                    <div class="col-lg-12 pb-4 col-sm-12 col-md-12">
+                                        <label for="exampleInputEmail1">Sumber Surat</label>
+                                        <div class="input-group">
+                                            <select class="form-select" id="sumber" aria-label="Default select example">
+                                                <option selected>---Pilih Sumber---</option>
+                                                <option value="01">Yayasan</option>
+                                                <option value="02">Dinas</option>
+                                                <option value="03">Ormas</option>
+                                                <option value="04">Instansi</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                @endif
                                 <div class="col-lg-12 pb-4 col-sm-12 col-md-12">
-                                    <label for="exampleInputEmail1">No Surat {{Request::segment(4) == 0 ? 'Masuk' : 'Keluar'}}</label>
+                                    <label for="exampleInputEmail1">No Surat
+                                        {{ Request::segment(4) == 0 ? 'Masuk' : 'Keluar' }}</label>
                                     <div class="input-group">
                                         <span style="z-index: 10" class="input-group-text text-body">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
@@ -45,8 +60,8 @@
                                             </svg>
                                         </span>
                                         <input readonly
-                                            value="{{ str_pad($last_id, 3, '0', STR_PAD_LEFT) }}/100.{{ Request::segment(4) == 0 ? '1' : '2' }}/SMK-TPG2/{{ $month }}/{{ date('Y') }}"
-                                            required type="text" name="no_surat" class="form-control"
+                                            value="{{ str_pad($last_id, 3, '0', STR_PAD_LEFT) }}/100.{{ Request::segment(4) == 0 ? '1' : '2' }}/00/SMK-TPG2/{{ $month }}/{{ date('Y') }}"
+                                            required type="text" name="no_surat" class="form-control" id="no_surat"
                                             id="exampleInputno_surat1" required aria-describedby="no_suratHelp"
                                             placeholder="Format : R/01/KP.01/VI/2022">
                                     </div>
@@ -191,8 +206,14 @@
         function closeModal() {
             $('#show-pdf-modal').modal('hide')
         }
+        $('#sumber').on('change', function() {
+            noSurat = $("#no_surat").val();
+            noSurat = noSurat.split("/");
+            noSurat = noSurat[0] + "/" + noSurat[1] + "/" + this.value + "/" + noSurat[3] + "/" + noSurat[4] + "/" +
+                noSurat[5]
+            $("#no_surat").val(noSurat)
+        });
         $("#view-pdf").click(function() {
-
             var file = $("#pdfInput")[0].files[0]
             var url = URL.createObjectURL(file);
             $('#pdf-show').attr('src', url);
