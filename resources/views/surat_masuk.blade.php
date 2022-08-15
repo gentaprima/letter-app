@@ -42,7 +42,7 @@
                                     @endif
 
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        {{ Request::segment(3) == 1 ? 'Kepada' : 'Dari/Kepada' }}</th>
+                                        {{ Request::segment(3) == 1 ? 'Kepada' : 'Kepada/Dari' }}</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Perihal
                                     </th>
                                     @if (Request::segment(3) == 0)
