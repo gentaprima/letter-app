@@ -35,7 +35,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal
                                         Arsip</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Dari/Kepada</th>
+                                        Kepada/Dari</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Perihal
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
